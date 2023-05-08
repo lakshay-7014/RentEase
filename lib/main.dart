@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: StringConst.appTitle,
       navigatorKey: navigatorKey,
-      home: PhoneScreen(),
-      // home: ProfileScreen(),
+      //home: PhoneScreen(),
+      home: ProfileScreen(),
     );
   }
 }
