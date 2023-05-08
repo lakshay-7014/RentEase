@@ -3,37 +3,21 @@ import 'package:get/get.dart';
 import 'package:minor/screens/pages/home_screen.dart';
 import '../const/color_const.dart';
 import '../const/string_const.dart';
-import '../controllers/create_profile_controller.dart';
-import '../services/db_1.dart';
 import '../utils/app_sizes.dart';
 import '../utils/no_leading_space_formatter.dart';
 import '../utils/no_leading_trailing_space_formatter.dart';
 import '../views/widgets/custom_app_bars/custom_app_bar_2.dart';
-import '../views/widgets/custom_buttons/custom_button_1.dart';
 import '../views/widgets/custom_text_form_fields/custom_text_form_field_1.dart';
 import '../views/widgets/custom_titles/custome_title1.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
 
-  final _controller = Get.put(CreateProfileController());
+  //final _controller = Get.put(CreateProfileController());
   final _key = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _streamController = TextEditingController();
-
-  void onTap(BuildContext context) async {
-    if (_key.currentState!.validate()) {
-      FocusManager.instance.primaryFocus!.unfocus();
-      _controller.updateUserName(_nameController.text.trim());
-      _controller.updateUserDescription(_descriptionController.text.trim());
-      _controller.updateStream(_streamController.text.trim());
-      await DbController1().saveUserInfo().then((value) {
-        Get.offAll(() => HomeScreen());
-      });
-      //Get.to(() => OnboardingPage3());
-    }
-  }
 
   void onTap2() {
     FocusManager.instance.primaryFocus!.unfocus();
@@ -56,34 +40,7 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: AppSizes.height10),
                 const CustomTitle1(text: StringConst.createProfile),
                 SizedBox(height: AppSizes.height10 * 2),
-                // GestureDetector(
-                //   child: Stack(
-                //     children: [
-                //       Center(
-                //         child: Obx(
-                //               () => Image.asset(
-                //            // _controller.avatarImageConst(),
-                //             height: AppSizes.height10 * 10,
-                //           ),
-                //         ),
-                //       ),
-                //       Positioned(
-                //         left: AppSizes.width10 * 20.5,
-                //         top: AppSizes.height10 * 6.7,
-                //         child: CircleAvatar(
-                //           backgroundColor: ColorConst.primaryColor,
-                //           radius: AppSizes.height10 * 1.5,
-                //           child: Icon(
-                //             Icons.create_rounded,
-                //             size: AppSizes.height10 * 2,
-                //             color: ColorConst.whiteColor,
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                //   onTap: onTap2,
-                // ),
+
                 SizedBox(height: AppSizes.height10 * 2),
                 Form(
                   key: _key,
@@ -149,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                 MaterialButton(
                   color: Colors.red,
                   onPressed: () {
-                    onTap(context);
+                    //onTap(context);
                   },
                 ),
                 // CustomButton1(

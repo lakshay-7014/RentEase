@@ -118,7 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.to(() => CategoryList());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CategoryList()),
+                    );
                   },
                   child: Row(
                     children: [
@@ -347,7 +351,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Icon(Icons.add),
           onPressed: () => setState(() {
             _selectedPageIndex = 2;
-            Get.to(() => CategoryScreen());
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CategoryScreen()),
+            );
+            // CategoryScreen());
           }),
         ),
       ),
