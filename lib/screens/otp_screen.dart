@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:minor/screens/pages/home_screen.dart';
+import 'package:minor/screens/profile_screen.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
+import '../auth/auth_provider.dart';
+import '../utils/utils.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+  final String verificationId;
+  const OtpScreen({super.key, required this.verificationId});
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  String? otpCode;
   @override
   Widget build(BuildContext context) {
+    final isLoading =
+        Provider.of<AuthProvider>(context, listen: true).isLoading;
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -90,7 +98,11 @@ class _OtpScreenState extends State<OtpScreen> {
                 // submittedPinTheme: submittedPinTheme,
 
                 showCursor: true,
-                onCompleted: (pin) => print(pin),
+                onCompleted: (value) {
+                  setState(() {
+                    otpCode = value;
+                  });
+                },
               ),
               SizedBox(
                 height: 20,
@@ -104,10 +116,16 @@ class _OtpScreenState extends State<OtpScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (Route<dynamic> route) => false);
+                      // Navigator.of(context).pushAndRemoveUntil(
+                      //     MaterialPageRoute(builder: (context) => HomeScreen()),
+                      //     (Route<dynamic> route) => false);
+
                       //Navigator.
+                      if (otpCode != null) {
+                        verifyOtp(context, otpCode!);
+                      } else {
+                        showSnackBar(context, "Enter 6-Digit code");
+                      }
                     },
                     child: Text("Verify Phone Number")),
               ),
@@ -115,6 +133,44 @@ class _OtpScreenState extends State<OtpScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void verifyOtp(BuildContext context, String userOtp) {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+    ap.verifyOtp(
+      context: context,
+      verificationId: widget.verificationId,
+      userOtp: userOtp,
+      onSuccess: () {
+        // checking whether user exists in the db
+        ap.checkExistingUser().then(
+          (value) async {
+            if (value == true) {
+              // user exists in our app
+              ap.getDataFromFirestore().then(
+                    (value) => ap.saveUserDataToSP().then(
+                          (value) => ap.setSignIn().then(
+                                (value) => Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomeScreen(),
+                                    ),
+                                    (route) => false),
+                              ),
+                        ),
+                  );
+            } else {
+              // new user
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserInfromationScreen()),
+                  (route) => false);
+            }
+          },
+        );
+      },
     );
   }
 }
