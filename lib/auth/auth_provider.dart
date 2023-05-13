@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/user_model.dart';
 import '../screens/otp_screen.dart';
 import '../utils/utils.dart';
@@ -57,9 +56,7 @@ class AuthProvider extends ChangeNotifier {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => OtpScreen(
-                  verificationId: verificationId,
-                ),
+                builder: (context) => OtpScreen(verificationId: verificationId),
               ),
             );
           },
@@ -126,7 +123,7 @@ class AuthProvider extends ChangeNotifier {
         userModel.profilePic = value;
         userModel.createdAt = DateTime.now().millisecondsSinceEpoch.toString();
         userModel.phoneNumber = _firebaseAuth.currentUser!.phoneNumber!;
-        userModel.uid = _firebaseAuth.currentUser!.phoneNumber!;
+        userModel.uid = _firebaseAuth.currentUser!.uid!;
       });
       _userModel = userModel;
 
@@ -168,6 +165,7 @@ class AuthProvider extends ChangeNotifier {
         uid: snapshot['uid'],
         profilePic: snapshot['profilePic'],
         phoneNumber: snapshot['phoneNumber'],
+        aadhar: snapshot['aadhar'],
       );
       _uid = userModel.uid;
     });

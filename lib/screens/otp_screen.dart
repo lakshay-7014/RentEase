@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:minor/screens/pages/home_screen.dart';
@@ -16,6 +17,7 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   String? otpCode;
+
   @override
   Widget build(BuildContext context) {
     final isLoading =
@@ -116,11 +118,6 @@ class _OtpScreenState extends State<OtpScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      // Navigator.of(context).pushAndRemoveUntil(
-                      //     MaterialPageRoute(builder: (context) => HomeScreen()),
-                      //     (Route<dynamic> route) => false);
-
-                      //Navigator.
                       if (otpCode != null) {
                         verifyOtp(context, otpCode!);
                       } else {
@@ -165,7 +162,7 @@ class _OtpScreenState extends State<OtpScreen> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => UserInfromationScreen()),
+                      builder: (context) => const ProfileScreen()),
                   (route) => false);
             }
           },

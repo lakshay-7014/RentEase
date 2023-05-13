@@ -3,12 +3,12 @@ import 'package:minor/screens/phone_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/auth_provider.dart';
+import '../../const/color_const.dart';
 import '../../views/widgets/custom_button.dart';
 import 'home_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
-
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
@@ -41,32 +41,36 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 const SizedBox(height: 10),
                 const SizedBox(height: 20),
                 // custom button
+
                 SizedBox(
                   width: double.infinity,
-                  height: 50,
-                  child: CustomButton(
-                    onPressed: () async {
-                      if (ap.isSignedIn == true) {
-                        await ap.getDataFromSP().whenComplete(
-                              () => Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomeScreen(),
+                  height: 45,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: ColorConst.primaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onPressed: () async {
+                        if (ap.isSignedIn == true) {
+                          await ap.getDataFromSP().whenComplete(
+                                () => Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(),
+                                  ),
                                 ),
-                              ),
-                            );
-                      } else {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PhoneScreen(),
-                          ),
-                        );
-                      }
-                    },
-                    text: "Get started",
-                  ),
-                )
+                              );
+                        } else {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PhoneScreen(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text("Get Started")),
+                ),
               ],
             ),
           ),

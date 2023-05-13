@@ -5,7 +5,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:minor/screens/pages/category_list.dart';
-import '../../views/widgets/custom_app_bars/custom_app_bar_2.dart';
+import 'package:minor/screens/pages/welcome_screen.dart';
+import 'package:provider/provider.dart';
+import '../../auth/auth_provider.dart';
+import '../../const/image_const.dart';
+import '../../utils/app_sizes.dart';
 import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,9 +46,66 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
     double displayWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: appBar2,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              ap.userSignOut().then(
+                    (value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WelcomeScreen(),
+                      ),
+                    ),
+                  );
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
+        ],
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        centerTitle: true,
+        toolbarHeight: 35,
+        backgroundColor: ColorConst.primaryColor,
+        systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
+          statusBarColor: ColorConst.primaryColor,
+          //statusBarColor: Colors.transparent,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(9 * 3),
+          ),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              ImageConst.appLogo,
+              height: AppSizes.height10 * 9,
+            ),
+            Column(
+              children: [
+                Text(
+                  "RENTEASE",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
+                SizedBox(height: AppSizes.height10 * 1.5),
+                Image.asset(
+                  ImageConst.appLogo,
+                  height: AppSizes.height10 * 2.7,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

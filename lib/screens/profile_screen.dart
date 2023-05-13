@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:minor/screens/pages/home_screen.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_provider.dart';
+import '../const/color_const.dart';
 import '../models/user_model.dart';
 import '../utils/utils.dart';
 import '../views/widgets/custom_button.dart';
 
-class UserInfromationScreen extends StatefulWidget {
-  const UserInfromationScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<UserInfromationScreen> createState() => _UserInfromationScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _UserInfromationScreenState extends State<UserInfromationScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   File? image;
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final bioController = TextEditingController();
-
+  final aadharController = TextEditingController();
   @override
   void dispose() {
     super.dispose();
@@ -94,26 +95,40 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                               controller: emailController,
                             ),
 
+                            textFeld(
+                              hintText: "Enter your aadhar number",
+                              icon: Icons.numbers,
+                              inputType: TextInputType.text,
+                              maxLines: 1,
+                              controller: aadharController,
+                            ),
                             // bio
                             textFeld(
                               hintText: "Enter your description...",
                               icon: Icons.edit,
                               inputType: TextInputType.name,
-                              maxLines: 2,
+                              maxLines: 1,
                               controller: bioController,
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        child: CustomButton(
-                          text: "Continue",
-                          onPressed: () => storeData(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 45,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: ColorConst.primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onPressed: () => storeData(),
+                              child: Text("Continue")),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -177,6 +192,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
       name: nameController.text.trim(),
       email: emailController.text.trim(),
       bio: bioController.text.trim(),
+      aadhar: aadharController.text.trim(),
       profilePic: "",
       createdAt: "",
       phoneNumber: "",
