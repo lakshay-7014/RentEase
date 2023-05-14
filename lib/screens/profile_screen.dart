@@ -1,169 +1,223 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:minor/screens/pages/home_screen.dart';
+import 'package:provider/provider.dart';
+import '../auth/auth_provider.dart';
 import '../const/color_const.dart';
-import '../const/string_const.dart';
-import '../controllers/create_profile_controller.dart';
-import '../services/db_1.dart';
-import '../utils/app_sizes.dart';
-import '../utils/no_leading_space_formatter.dart';
-import '../utils/no_leading_trailing_space_formatter.dart';
-import '../views/widgets/custom_app_bars/custom_app_bar_2.dart';
-import '../views/widgets/custom_buttons/custom_button_1.dart';
-import '../views/widgets/custom_text_form_fields/custom_text_form_field_1.dart';
-import '../views/widgets/custom_titles/custome_title1.dart';
+import '../models/user_model.dart';
+import '../utils/utils.dart';
+import '../views/widgets/custom_button.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
-  final _controller = Get.put(CreateProfileController());
-  final _key = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _streamController = TextEditingController();
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
 
-  void onTap(BuildContext context) async {
-    if (_key.currentState!.validate()) {
-      FocusManager.instance.primaryFocus!.unfocus();
-      _controller.updateUserName(_nameController.text.trim());
-      _controller.updateUserDescription(_descriptionController.text.trim());
-      _controller.updateStream(_streamController.text.trim());
-      await DbController1().saveUserInfo().then((value) {
-        Get.offAll(() => HomeScreen());
-      });
-      //Get.to(() => OnboardingPage3());
-    }
+class _ProfileScreenState extends State<ProfileScreen> {
+  File? image;
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final bioController = TextEditingController();
+  final aadharController = TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    bioController.dispose();
   }
 
-  void onTap2() {
-    FocusManager.instance.primaryFocus!.unfocus();
-    //  Get.to(() => AvatarChoosePage());
+  // for selecting image
+  void selectImage() async {
+    image = await pickImage(context);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    //AppSizes.mediaQueryHeightWidth();
+    final isLoading =
+        Provider.of<AuthProvider>(context, listen: true).isLoading;
     return Scaffold(
-      appBar: appBar2,
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          reverse: true,
-          child: Padding(
-            padding: AppSizes.horizontalPadding20,
-            child: Column(
-              children: [
-                SizedBox(height: AppSizes.height10),
-                const CustomTitle1(text: StringConst.createProfile),
-                SizedBox(height: AppSizes.height10 * 2),
-                // GestureDetector(
-                //   child: Stack(
-                //     children: [
-                //       Center(
-                //         child: Obx(
-                //               () => Image.asset(
-                //            // _controller.avatarImageConst(),
-                //             height: AppSizes.height10 * 10,
-                //           ),
-                //         ),
-                //       ),
-                //       Positioned(
-                //         left: AppSizes.width10 * 20.5,
-                //         top: AppSizes.height10 * 6.7,
-                //         child: CircleAvatar(
-                //           backgroundColor: ColorConst.primaryColor,
-                //           radius: AppSizes.height10 * 1.5,
-                //           child: Icon(
-                //             Icons.create_rounded,
-                //             size: AppSizes.height10 * 2,
-                //             color: ColorConst.whiteColor,
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                //   onTap: onTap2,
-                // ),
-                SizedBox(height: AppSizes.height10 * 2),
-                Form(
-                  key: _key,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: isLoading == true
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Color(0xFF19736C),
+                ),
+              )
+            : SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
+                child: Center(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 80,
+                      InkWell(
+                        onTap: () => selectImage(),
+                        child: image == null
+                            ? const CircleAvatar(
+                                backgroundColor: Color(0xFF19736C),
+                                radius: 50,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : CircleAvatar(
+                                backgroundImage: FileImage(image!),
+                                radius: 50,
+                              ),
                       ),
-                      CustomTextFormField1(
-                        controller: _nameController,
-                        maxLines: 1,
-                        hintText: StringConst.chooseUserName,
-                        validator: (val) {
-                          if (GetUtils.isUsername(val!)) {
-                            return null;
-                          } else {
-                            return StringConst.chooseValidUserName;
-                          }
-                        },
-                        keyboardType: TextInputType.name,
-                        inputFormatters: [NoLeadingTrailingSpaceFormatter()],
-                        obscureText: false,
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 15),
+                        margin: const EdgeInsets.only(top: 20),
+                        child: Column(
+                          children: [
+                            // name field
+                            textFeld(
+                              hintText: "Enter your name",
+                              icon: Icons.account_circle,
+                              inputType: TextInputType.name,
+                              maxLines: 1,
+                              controller: nameController,
+                            ),
+
+                            // email
+                            textFeld(
+                              hintText: "Enter your email",
+                              icon: Icons.email,
+                              inputType: TextInputType.emailAddress,
+                              maxLines: 1,
+                              controller: emailController,
+                            ),
+
+                            textFeld(
+                              hintText: "Enter your aadhar number",
+                              icon: Icons.numbers,
+                              inputType: TextInputType.text,
+                              maxLines: 1,
+                              controller: aadharController,
+                            ),
+                            // bio
+                            textFeld(
+                              hintText: "Enter your description...",
+                              icon: Icons.edit,
+                              inputType: TextInputType.name,
+                              maxLines: 1,
+                              controller: bioController,
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 20),
-                      CustomTextFormField1(
-                        controller: _descriptionController,
-                        maxLines: 5,
-                        hintText: StringConst.writeAboutYourself,
-                        validator: (val) {
-                          if (GetUtils.isLengthGreaterOrEqual(val, 20)) {
-                            return null;
-                          } else {
-                            return StringConst.chooseValidDescription20;
-                          }
-                        },
-                        keyboardType: TextInputType.text,
-                        inputFormatters: [NoLeadingSpaceFormatter()],
-                        obscureText: false,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFormField1(
-                        controller: _streamController,
-                        maxLines: 1,
-                        hintText: StringConst.chooseYourStream,
-                        validator: (val) {
-                          if (GetUtils.isUsername(val!)) {
-                            return null;
-                          } else {
-                            return StringConst.chooseValidUserName;
-                          }
-                        },
-                        keyboardType: TextInputType.name,
-                        inputFormatters: [NoLeadingTrailingSpaceFormatter()],
-                        obscureText: false,
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 45,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: ColorConst.primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onPressed: () => storeData(),
+                              child: Text("Continue")),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 4),
-                MaterialButton(
-                  color: Colors.red,
-                  onPressed: () {
-                    onTap(context);
-                  },
-                ),
-                // CustomButton1(
-                //   text: StringConst.continueButtonString,
-                //   buttonColor: ColorConst.primaryColor,
-                //   textColor: ColorConst.whiteColor,
-                //   //onTap: onTap,
-                // ),
-                SizedBox(height: AppSizes.height10 * 2),
-              ],
+              ),
+      ),
+    );
+  }
+
+  Widget textFeld({
+    required String hintText,
+    required IconData icon,
+    required TextInputType inputType,
+    required int maxLines,
+    required TextEditingController controller,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: TextFormField(
+        cursorColor: Color(0xFF19736C),
+        controller: controller,
+        keyboardType: inputType,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          prefixIcon: Container(
+            margin: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Color(0xFF19736C)),
+            child: Icon(
+              icon,
+              size: 20,
+              color: Colors.white,
             ),
           ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+          hintText: hintText,
+          alignLabelWithHint: true,
+          border: InputBorder.none,
+          fillColor: Color(0xFFD5E1E0),
+          filled: true,
         ),
       ),
     );
+  }
+
+  // store user data to database
+  void storeData() async {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+    UserModel userModel = UserModel(
+      name: nameController.text.trim(),
+      email: emailController.text.trim(),
+      bio: bioController.text.trim(),
+      aadhar: aadharController.text.trim(),
+      profilePic: "",
+      createdAt: "",
+      phoneNumber: "",
+      uid: "",
+    );
+    if (image != null) {
+      ap.saveUserDataToFirebase(
+        context: context,
+        userModel: userModel,
+        profilePic: image!,
+        onSuccess: () {
+          ap.saveUserDataToSP().then(
+                (value) => ap.setSignIn().then(
+                      (value) => Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                          (route) => false),
+                    ),
+              );
+        },
+      );
+    } else {
+      showSnackBar(context, "Please upload your profile photo");
+    }
   }
 }

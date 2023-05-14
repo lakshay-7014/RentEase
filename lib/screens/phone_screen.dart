@@ -1,26 +1,38 @@
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:minor/const/color_const.dart';
-import 'package:minor/screens/otp_screen.dart';
+import 'package:provider/provider.dart';
+import '../auth/auth_provider.dart';
 
 class PhoneScreen extends StatefulWidget {
   const PhoneScreen({Key? key}) : super(key: key);
-
   @override
   State<PhoneScreen> createState() => _PhoneScreenState();
 }
 
 class _PhoneScreenState extends State<PhoneScreen> {
-  TextEditingController countryController = TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    countryController.text = "+91";
-    super.initState();
-  }
+  final TextEditingController countryController = TextEditingController();
+  Country selectedCountry = Country(
+    phoneCode: "91",
+    countryCode: "IN",
+    e164Sc: 0,
+    geographic: true,
+    level: 1,
+    name: "India",
+    example: "India",
+    displayName: "India",
+    displayNameNoCountryCode: "IN",
+    e164Key: "",
+  );
 
   @override
   Widget build(BuildContext context) {
+    countryController.selection = TextSelection.fromPosition(
+      TextPosition(
+        offset: countryController.text.length,
+      ),
+    );
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(left: 25, right: 25),
@@ -54,43 +66,76 @@ class _PhoneScreenState extends State<PhoneScreen> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                height: 55,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        controller: countryController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+              TextFormField(
+                controller: countryController,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    countryController.text = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: " Enter phone number",
+                  hintStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
+                    color: Colors.grey.shade600,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Colors.black12),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Colors.black12),
+                  ),
+                  prefixIcon: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        showCountryPicker(
+                            context: context,
+                            countryListTheme: const CountryListThemeData(
+                              bottomSheetHeight: 550,
+                            ),
+                            onSelect: (value) {
+                              setState(() {
+                                selectedCountry = value;
+                              });
+                            });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                    Text(
-                      "|",
-                      style: TextStyle(fontSize: 33, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                        child: TextField(
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Phone",
-                      ),
-                    ))
-                  ],
+                  ),
+                  suffixIcon: countryController.text.length > 9
+                      ? Container(
+                          height: 30,
+                          width: 30,
+                          margin: const EdgeInsets.all(10.0),
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.green,
+                          ),
+                          child: const Icon(
+                            Icons.done,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        )
+                      : null,
                 ),
               ),
               SizedBox(
@@ -104,19 +149,19 @@ class _PhoneScreenState extends State<PhoneScreen> {
                         primary: ColorConst.primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OtpScreen()),
-                      );
-                    },
+                    onPressed: () => sendPhoneNumber(),
                     child: Text("Send the code")),
-              )
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void sendPhoneNumber() {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+    String phoneNumber = countryController.text.trim();
+    ap.signInWithPhone(context, "+${selectedCountry.phoneCode}$phoneNumber");
   }
 }
