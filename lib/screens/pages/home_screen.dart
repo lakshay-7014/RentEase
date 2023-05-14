@@ -45,41 +45,35 @@ class _HomeScreenState extends State<HomeScreen> {
     double displayWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: appBar2,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      body: ListView(
+        shrinkWrap: true,
+        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              // keyboardType: keyboardType,
-              // controller: controller,
-              // inputFormatters: inputFormatters,
-              // textCapitalization: TextCapitalization.sentences,
-              // maxLines: maxLines,
-              // validator: validator,
-              // obscureText: obscureText,
-              cursorColor: Colors.black12,
-              decoration: InputDecoration(
-                hoverColor: Colors.white,
-                focusColor: Colors.white,
-                fillColor: Colors.white,
-                contentPadding: const EdgeInsets.all(12),
-                hintText: "Search your product",
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black38,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.white,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(10),
+          //   child: TextField(
+          //     cursorColor: Colors.black12,
+          //     decoration: InputDecoration(
+          //       hoverColor: Colors.white,
+          //       focusColor: Colors.white,
+          //       fillColor: Colors.white,
+          //       contentPadding: const EdgeInsets.all(12),
+          //       hintText: "Search your product",
+          //       focusedBorder: OutlineInputBorder(
+          //         borderSide: BorderSide(
+          //           color: Colors.black38,
+          //         ),
+          //         borderRadius: BorderRadius.circular(15),
+          //       ),
+          //       border: OutlineInputBorder(
+          //         borderSide: BorderSide(
+          //           color: Colors.white,
+          //         ),
+          //         borderRadius: BorderRadius.circular(15),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           CarouselSlider(
             items: imgList
                 .map((item) => Container(
@@ -98,189 +92,187 @@ class _HomeScreenState extends State<HomeScreen> {
               enlargeCenterPage: true,
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 3),
-                  child: Text(
-                    "CATEGORIES",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 3),
+                child: Text(
+                  "CATEGORIES",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CategoryList()),
-                    );
-                  },
-                  child: Row(
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CategoryList()),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Text("See All"),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 10,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          Container(
+            width: 90,
+            height: 90,
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: Column(
                     children: [
-                      Text("See All"),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 10,
+                      Image.asset(
+                        'assets/images/img1.png',
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Text("Cars"),
+                      )
                     ],
                   ),
-                )
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: Column(
+                    children: [
+                      Image.asset('assets/images/img2.png'),
+                      Text("Home")
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: Column(
+                    children: [
+                      Image.asset('assets/images/img3.png'),
+                      Text("Mobile")
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: Column(
+                    children: [
+                      Image.asset('assets/images/img4.png'),
+                      Text("Jobs")
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: Column(
+                    children: [
+                      Image.asset('assets/images/img5.png'),
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Text("Bikes"),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: Column(
+                    children: [
+                      Image.asset('assets/images/img6.png'),
+                      Text("Electronics")
+                    ],
+                  ),
+                ),
               ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/images/img1.png',
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text("Cars"),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    child: Column(
-                      children: [
-                        Image.asset('assets/images/img2.png'),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text("Home"),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    width: 52,
-                    height: 50,
-                    child: Column(
-                      children: [
-                        Image.asset('assets/images/img3.png'),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text("Mobiles"),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    child: Column(
-                      children: [
-                        Image.asset('assets/images/img4.png'),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text("Jobs"),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    child: Column(
-                      children: [
-                        Image.asset('assets/images/img5.png'),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text("Bikes"),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    child: Column(
-                      children: [
-                        Image.asset('assets/images/img6.png'),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text("Electronics"),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
             ),
           ),
           // Container(
           //   height: MediaQuery.of(context).size.height * 0.41,
           // )
           Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 140,
-                  width: 160,
-                  color: ColorConst.errorPageStatusBarColor,
-                ),
-                Container(
-                  height: 140,
-                  width: 160,
-                  color: ColorConst.errorPageStatusBarColor,
-                )
-              ],
+            padding: const EdgeInsets.all(9.0),
+            child: Container(
+              height: 140,
+              width: 160,
+              color: ColorConst.errorPageStatusBarColor,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 140,
-                  width: 160,
-                  color: ColorConst.errorPageStatusBarColor,
-                ),
-                Container(
-                  height: 140,
-                  width: 160,
-                  color: ColorConst.errorPageStatusBarColor,
-                )
-              ],
+            padding: const EdgeInsets.all(9.0),
+            child: Container(
+              height: 140,
+              width: 160,
+              color: ColorConst.errorPageStatusBarColor,
             ),
           ),
+           Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: Container(
+              height: 140,
+              width: 160,
+              color: ColorConst.errorPageStatusBarColor,
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: Container(
+              height: 140,
+              width: 160,
+              color: ColorConst.errorPageStatusBarColor,
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: Container(
+              height: 140,
+              width: 160,
+              color: ColorConst.errorPageStatusBarColor,
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: Container(
+              height: 140,
+              width: 160,
+              color: ColorConst.errorPageStatusBarColor,
+            ),
+          ),
+          
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -291,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           height: kBottomNavigationBarHeight * 1.1,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(
                 top: BorderSide(
@@ -307,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
               unselectedItemColor: Colors.black54,
               selectedItemColor: ColorConst.primaryColor,
               currentIndex: _selectedPageIndex,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
@@ -355,8 +347,8 @@ class _HomeScreenState extends State<HomeScreen> {
               context,
               MaterialPageRoute(builder: (context) => CategoryScreen()),
             );
-            // CategoryScreen());
-          }),
+          }
+          ),
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart'
     import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+
 // ...
 
 // await Firebase.initializeApp(
@@ -16,11 +17,11 @@ import 'firebase_options.dart';
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
+// / import 'firebase_options.dart';
+// / // ...
+// / await Firebase.initializeApp(
+//   options: DefaultFirebaseOptions.currentPlatform,
+// / );
 /// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {

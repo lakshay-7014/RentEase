@@ -26,98 +26,95 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //AppSizes.mediaQueryHeightWidth();
+    
     return Scaffold(
       appBar: appBar2,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          reverse: true,
-          child: Padding(
-            padding: AppSizes.horizontalPadding20,
-            child: Column(
-              children: [
-                SizedBox(height: AppSizes.height10),
-                const CustomTitle1(text: StringConst.createProfile),
-                SizedBox(height: AppSizes.height10 * 2),
+      body: SingleChildScrollView(
+     
+        child: Padding(
+          padding: AppSizes.horizontalPadding20,
+          child: Column(
+            children: [
+              SizedBox(height: AppSizes.height10),
+              const CustomTitle1(text: StringConst.createProfile),
+              SizedBox(height: AppSizes.height10 * 2),
 
-                SizedBox(height: AppSizes.height10 * 2),
-                Form(
-                  key: _key,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 80,
-                      ),
-                      CustomTextFormField1(
-                        controller: _nameController,
-                        maxLines: 1,
-                        hintText: StringConst.chooseUserName,
-                        validator: (val) {
-                          if (GetUtils.isUsername(val!)) {
-                            return null;
-                          } else {
-                            return StringConst.chooseValidUserName;
-                          }
-                        },
-                        keyboardType: TextInputType.name,
-                        inputFormatters: [NoLeadingTrailingSpaceFormatter()],
-                        obscureText: false,
-                      ),
-                      SizedBox(height: 20),
-                      CustomTextFormField1(
-                        controller: _descriptionController,
-                        maxLines: 5,
-                        hintText: StringConst.writeAboutYourself,
-                        validator: (val) {
-                          if (GetUtils.isLengthGreaterOrEqual(val, 20)) {
-                            return null;
-                          } else {
-                            return StringConst.chooseValidDescription20;
-                          }
-                        },
-                        keyboardType: TextInputType.text,
-                        inputFormatters: [NoLeadingSpaceFormatter()],
-                        obscureText: false,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFormField1(
-                        controller: _streamController,
-                        maxLines: 1,
-                        hintText: StringConst.chooseYourStream,
-                        validator: (val) {
-                          if (GetUtils.isUsername(val!)) {
-                            return null;
-                          } else {
-                            return StringConst.chooseValidUserName;
-                          }
-                        },
-                        keyboardType: TextInputType.name,
-                        inputFormatters: [NoLeadingTrailingSpaceFormatter()],
-                        obscureText: false,
-                      ),
-                    ],
-                  ),
+              SizedBox(height: AppSizes.height10 * 2),
+              Form(
+                key: _key,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 80,
+                    ),
+                    CustomTextFormField1(
+                      controller: _nameController,
+                      maxLines: 1,
+                      hintText: StringConst.chooseUserName,
+                      validator: (val) {
+                        if (GetUtils.isUsername(val!)) {
+                          return null;
+                        } else {
+                          return StringConst.chooseValidUserName;
+                        }
+                      },
+                      keyboardType: TextInputType.name,
+                      inputFormatters: [NoLeadingTrailingSpaceFormatter()],
+                      obscureText: false,
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextFormField1(
+                      controller: _descriptionController,
+                      maxLines: 5,
+                      hintText: StringConst.writeAboutYourself,
+                      validator: (val) {
+                        if (GetUtils.isLengthGreaterOrEqual(val, 20)) {
+                          return null;
+                        } else {
+                          return StringConst.chooseValidDescription20;
+                        }
+                      },
+                      keyboardType: TextInputType.text,
+                      inputFormatters: [NoLeadingSpaceFormatter()],
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CustomTextFormField1(
+                      controller: _streamController,
+                      maxLines: 1,
+                      hintText: StringConst.chooseYourStream,
+                      validator: (val) {
+                        if (GetUtils.isUsername(val!)) {
+                          return null;
+                        } else {
+                          return StringConst.chooseValidUserName;
+                        }
+                      },
+                      keyboardType: TextInputType.name,
+                      inputFormatters: [NoLeadingTrailingSpaceFormatter()],
+                      obscureText: false,
+                    ),
+                  ],
                 ),
-                SizedBox(height: 4),
-                MaterialButton(
-                  color: Colors.red,
-                  onPressed: () {
-                    //onTap(context);
-                  },
-                ),
-                // CustomButton1(
-                //   text: StringConst.continueButtonString,
-                //   buttonColor: ColorConst.primaryColor,
-                //   textColor: ColorConst.whiteColor,
-                //   //onTap: onTap,
-                // ),
-                SizedBox(height: AppSizes.height10 * 2),
-              ],
-            ),
+              ),
+              SizedBox(height: 4),
+              MaterialButton(
+                color: Colors.red,
+                onPressed: () {
+                  //onTap(context);
+                },
+              ),
+              // CustomButton1(
+              //   text: StringConst.continueButtonString,
+              //   buttonColor: ColorConst.primaryColor,
+              //   textColor: ColorConst.whiteColor,
+              //   //onTap: onTap,
+              // ),
+              SizedBox(height: AppSizes.height10 * 2),
+            ],
           ),
         ),
       ),

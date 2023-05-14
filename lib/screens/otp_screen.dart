@@ -74,7 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 height: 10,
               ),
               Text(
-                "We need to register your phone without getting started!",
+                "We need to register your phone before getting started!",
                 style: TextStyle(
                   fontSize: 16,
                 ),
