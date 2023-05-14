@@ -10,7 +10,7 @@ void showSnackBar(BuildContext context, String content) {
     ),
   );
 }
-
+  
 Future<File?> pickImage(BuildContext context) async {
   File? image;
   try {
