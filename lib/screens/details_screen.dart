@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,12 +5,10 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/src/painting/image_provider.dart';
-
 import '../const/color_const.dart';
 
 class Details extends StatefulWidget {
   final String category;
-
   const Details({super.key, required this.category});
 
   @override
@@ -25,8 +21,8 @@ class _DetailsState extends State<Details> {
   //final ImagePicker _picker = ImagePicker();
   @override
   TextEditingController namecontroller = TextEditingController();
-  TextEditingController pricecontroller= TextEditingController();
-  TextEditingController descriptioncontroller= TextEditingController();
+  TextEditingController pricecontroller = TextEditingController();
+  TextEditingController descriptioncontroller = TextEditingController();
   TextEditingController _title = TextEditingController();
   TextEditingController _about = TextEditingController();
   void selectimage(ImageSource source) async {
@@ -45,7 +41,7 @@ class _DetailsState extends State<Details> {
     try {
       CroppedFile? cropfile = await ImageCropper().cropImage(
         sourcePath: file!.path,
-        compressQuality: 3,
+        //compressQuality: 3,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       );
 
@@ -96,7 +92,7 @@ class _DetailsState extends State<Details> {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        toolbarHeight: 35,
+        toolbarHeight: 45,
         backgroundColor: ColorConst.primaryColor,
         systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
           statusBarColor: ColorConst.primaryColor,
@@ -124,47 +120,35 @@ class _DetailsState extends State<Details> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: SingleChildScrollView(
-          child: Column(
-            // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //imageProfile(),
-              // Center(
-              //  // child: Text("Enter Details Of Product",
+      body: SingleChildScrollView(
+        child: Column(
+          // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //imageProfile(),
+            // Center(
+            //  // child: Text("Enter Details Of Product",
 
-              //     style: TextStyle(
-              //       color: Color(0xFF076E66),
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 22,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 20,
-              // ),
-              imageProfile(),
-              const SizedBox(
-                height: 20,
-              ),
-              nameTextField(),
-              const SizedBox(
-                height: 20,
-              ),
-              professionTextField(),
-              const SizedBox(
-                height: 20,
-              ),
-              aboutTextField(),
-              const SizedBox(
-                height: 20,
-              ),
+            //     style: TextStyle(
+            //       color: Color(0xFF076E66),
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 22,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            imageProfile(),
+            nameTextField(),
+            professionTextField(),
 
-              submitfield(),
-            ],
-          ),
+            aboutTextField(),
+            SizedBox(
+              height: 10,
+            ),
+            submitfield(),
+          ],
         ),
       ),
     );
@@ -178,23 +162,21 @@ class _DetailsState extends State<Details> {
             onPressed: () {
               showPhotoOption();
             },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 200,
-                width: double.infinity,
+            child: Container(
+              height: 250,
+              width: double.infinity,
 
-                decoration: BoxDecoration(
-                    image: DecorationImage(fit:BoxFit.fill ,
-                        image: imageFile != null
-                            ? FileImage(imageFile!)
-                            : AssetImage('assets/images/img12.png')
-                                as ImageProvider)),
-                //backgroundImage: imageFile != null ? FileImage(imageFile!) : null,
-                // backgroundImage: _imageFile == null
-                //     ? AssetImage("assets/images/default_image1.png")
-                //     : FileImage(_imageFile!) as ImageProvider,
-              ),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: imageFile != null
+                          ? FileImage(imageFile!)
+                          : AssetImage('assets/images/img12.png')
+                              as ImageProvider)),
+              //backgroundImage: imageFile != null ? FileImage(imageFile!) : null,
+              // backgroundImage: _imageFile == null
+              //     ? AssetImage("assets/images/default_image1.png")
+              //     : FileImage(_imageFile!) as ImageProvider,
             ),
           ),
           // Positioned(
@@ -270,7 +252,7 @@ class _DetailsState extends State<Details> {
     return Center(
       child: SizedBox(
         height: 50,
-        width: 100,
+        width: 200,
         child: ElevatedButton(
           onPressed: () {},
           child: Text(
@@ -280,6 +262,9 @@ class _DetailsState extends State<Details> {
             ),
           ),
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
             primary: Color(0xFF076E66),
           ),
         ),
@@ -288,70 +273,79 @@ class _DetailsState extends State<Details> {
   }
 
   Widget nameTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: TextFormField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.blueAccent,
+          )),
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-          color: Colors.blueAccent,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.blueAccent,
-          width: 2,
-        )),
-        // prefixIcon: Icon(
-        //   Icons.present_to_all_sharp,
-        //   color: Colors.blueAccent,
-        // ),
-        labelText: "Product_Name",
-        //helperText: "Name can't be empty",
+              color: Colors.blueAccent,
+              width: 2,
+            ),
+          ),
+          // prefixIcon: Icon(
+          //   Icons.present_to_all_sharp,
+          //   color: Colors.blueAccent,
+          // ),
+          labelText: "Product_Name",
+          //helperText: "Name can't be empty",
+        ),
       ),
     );
   }
 
   Widget professionTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.blueAccent,
-          width: 2,
-        )),
-        // prefixIcon: Icon(
-        //   Icons.monitor_heart,
-        //   color: Colors.blueAccent,
-        // ),
-        labelText: "Price",
-        helperText: "Per_Month",
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: TextFormField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.black,
+          )),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.blueAccent,
+            width: 2,
+          )),
+          // prefixIcon: Icon(
+          //   Icons.monitor_heart,
+          //   color: Colors.blueAccent,
+          // ),
+          labelText: "Price",
+          helperText: "Per_Month",
+        ),
       ),
     );
   }
 
   Widget aboutTextField() {
-    return TextFormField(
-      maxLines: 5,
-      style: TextStyle(
-        fontSize: 16,
-      ),
-      decoration: const InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.teal,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.blueAccent,
-          width: 2,
-        )),
-        hintText: "Description",
-
-        //labelText: "Description",
-        helperText: "Write about your product",
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: TextFormField(
+        maxLines: 5,
+        style: TextStyle(
+          fontSize: 16,
+        ),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.teal,
+          )),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.blueAccent,
+            width: 2,
+          )),
+          hintText: "Description about your product",
+          //labelText: "Description",
+          //helperText: "Write about your product",
+        ),
       ),
     );
   }

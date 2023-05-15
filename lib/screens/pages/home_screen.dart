@@ -69,14 +69,13 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        toolbarHeight: 35,
+        toolbarHeight: 45,
         backgroundColor: ColorConst.primaryColor,
         systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
           statusBarColor: ColorConst.primaryColor,
           //statusBarColor: Colors.transparent,
         ),
         shape: RoundedRectangleBorder(
-          
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(9 * 3),
           ),
@@ -201,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Container(
-             width: 90,
+            width: 90,
             height: 90,
             child: ListView(
               // shrinkWrap: true,

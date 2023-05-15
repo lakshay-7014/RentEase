@@ -15,7 +15,7 @@ class CategoryList extends StatelessWidget {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        toolbarHeight: 35,
+        toolbarHeight: 45,
         backgroundColor: ColorConst.primaryColor,
         systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
           statusBarColor: ColorConst.primaryColor,
