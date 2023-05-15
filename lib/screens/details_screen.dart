@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,11 +7,18 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/src/painting/image_provider.dart';
+import 'package:minor/models/form_model.dart';
+import 'package:minor/screens/pages/home_screen.dart';
 import '../const/color_const.dart';
+import '../views/dialogs/ui_help.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Details extends StatefulWidget {
   final String category;
-  const Details({super.key, required this.category});
+  final User firebaseuser;
+
+  const Details(
+      {super.key, required this.category, required this.firebaseuser});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -24,14 +33,14 @@ class _DetailsState extends State<Details> {
   TextEditingController descriptioncontroller = TextEditingController();
 
   void selectimage(ImageSource source) async {
-    //  UiHelper.showloadingDialog(context, "Loading");
+      UiHelper.showloadingDialog(context, "Loading");
     try {
       XFile? pickedfile = await ImagePicker().pickImage(source: source);
       cropimage(pickedfile);
     } catch (e) {
-      print(e.toString());
+      
       Navigator.pop(context);
-      //UiHelper.showAlertDialog(context, "Error!", e.toString());
+      UiHelper.showAlertDialog(context, "Error!", e.toString());
     }
   }
 
@@ -47,13 +56,13 @@ class _DetailsState extends State<Details> {
         setState(() {
           imageFile = File(cropfile.path);
 
-          print(imageFile);
+        //  print(imageFile);
         });
-        //Navigator.pop(context);
+        Navigator.pop(context);
       }
     } catch (e) {
-      print(e.toString());
-      // UiHelper.showAlertDialog(context, "Error!te", e.toString());
+      //print(e.toString());
+       UiHelper.showAlertDialog(context, "Error!te", e.toString());
     }
   }
 
@@ -82,6 +91,63 @@ class _DetailsState extends State<Details> {
             ]),
           );
         });
+  }
+
+  void checkvalue() {
+    String name = namecontroller.text.trim();
+    String price = pricecontroller.text.trim();
+    String description = descriptioncontroller.text.trim();
+
+    if (name == "" || price == "" || description == "") {
+      UiHelper.showAlertDialog(
+          context, "Data Incomplete", "All fields are not Completed");
+    } else if(imageFile==null){
+       UiHelper.showAlertDialog(
+          context, "Data Incomplete", "please select the image");
+    }
+    else {
+      setdata(name: name, price: price, description: description);
+    }
+  }
+
+  void setdata(
+    
+      {required String name,
+      required String price,
+      required String description}) async {
+      
+    try {
+        UiHelper.showloadingDialog(context, "Uploading ");
+      DateTime now = DateTime.now();
+      String filename = now.toString();
+      UploadTask uploadtask = FirebaseStorage.instance
+          .ref()
+          .child('productpic/$filename')
+          .putFile(imageFile!);
+      TaskSnapshot snapshot = await uploadtask;
+      String imageurl = await snapshot.ref.getDownloadURL();
+      String uid = widget.firebaseuser.uid.toString();
+      String cat = widget.category.toString();
+      FormModel newform = FormModel(
+          category: cat,
+          productName: name,
+          price: price,
+          profilepic: imageurl,
+          description: description,
+          uid: uid);
+      await FirebaseFirestore.instance
+          .collection("product")
+          .add(newform.toMap())
+          .then((value) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return HomeScreen();
+        }));
+      });
+    } catch (ex) {
+      print(ex.toString());
+    }
   }
 
   Widget build(BuildContext context) {
@@ -120,23 +186,9 @@ class _DetailsState extends State<Details> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          //mainAxisAlignment: MainAxisAlignment.center,
+        
           children: [
-            //imageProfile(),
-            // Center(
-            //  // child: Text("Enter Details Of Product",
-
-            //     style: TextStyle(
-            //       color: Color(0xFF076E66),
-            //       fontWeight: FontWeight.bold,
-            //       fontSize: 22,
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
+           
             imageProfile(),
             nameTextField(),
             professionTextField(),
@@ -171,80 +223,15 @@ class _DetailsState extends State<Details> {
                           ? FileImage(imageFile!)
                           : AssetImage('assets/images/img12.png')
                               as ImageProvider)),
-              //backgroundImage: imageFile != null ? FileImage(imageFile!) : null,
-              // backgroundImage: _imageFile == null
-              //     ? AssetImage("assets/images/default_image1.png")
-              //     : FileImage(_imageFile!) as ImageProvider,
+              
             ),
           ),
-          // Positioned(
-          //   bottom: 20.0,
-          //   right: 34.0,
-          //   child: InkWell(
-          //     onTap: () {
-          //       showModalBottomSheet(
-          //           context: context, builder: (builder) => bottomSheet());
-          //     },
-          //     child: Icon(
-          //       Icons.camera_alt,
-          //       color: Color(0xFF076E66),
-          //       size: 28,
-          //     ),
-          //   ),
-          // )
+          
         ],
       ),
     );
   }
 
-  // Widget bottomSheet() {
-  //   return Container(
-  //     height: 100.0,
-  //     width: MediaQuery.of(context).size.width,
-  //     margin: EdgeInsets.symmetric(
-  //       horizontal: 20,
-  //       vertical: 20,
-  //     ),
-  //     child: Column(
-  //       children: <Widget>[
-  //         Text(
-  //           "Choose Profile photo",
-  //           style: TextStyle(
-  //             fontSize: 20.0,
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           height: 20,
-  //         ),
-  //         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-  //           TextButton.icon(
-  //             icon: Icon(Icons.camera),
-  //             onPressed: () {
-  //               takePhoto(ImageSource.camera);
-  //             },
-  //             label: Text("Camera"),
-  //           ),
-  //           TextButton.icon(
-  //             icon: Icon(Icons.image),
-  //             onPressed: () {
-  //               takePhoto(ImageSource.gallery);
-  //             },
-  //             label: Text("Gallery"),
-  //           ),
-  //         ])
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // void takePhoto(ImageSource source) async {
-  //   final pickedFile = await _picker.pickImage(
-  //     source: source,
-  //   );
-  //   setState(() {
-  //     _imageFile = File! as File?;
-  //   });
-  // }
 
   Widget submitfield() {
     return Center(
@@ -253,7 +240,7 @@ class _DetailsState extends State<Details> {
         width: 200,
         child: ElevatedButton(
           onPressed: () {
-           
+            checkvalue();
           },
           child: Text(
             "Upload",
@@ -332,7 +319,6 @@ class _DetailsState extends State<Details> {
         controller: descriptioncontroller,
         maxLines: 5,
         style: TextStyle(
-
           fontSize: 16,
         ),
         decoration: const InputDecoration(

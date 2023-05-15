@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -6,16 +7,19 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:minor/screens/pages/category_list.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
-import 'package:provider/provider.dart';
-import '../../auth/auth_provider.dart';
+// import 'package:provider/provider.dart';
+// import '../../auth/auth_provider.dart';
 
 import '../../utils/app_sizes.dart';
 import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+ 
+
   static double height10 = 0.0;
   static double width10 = 0.0;
+
+  const HomeScreen({super.key, });
 
   static void mediaQueryHeightWidth(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -31,7 +35,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var currentIndex = 0;
   int _selectedPageIndex = 0;
-
+User? user = FirebaseAuth.instance.currentUser;
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
@@ -46,26 +50,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ap = Provider.of<AuthProvider>(context, listen: false);
+    
+    // final ap = Provider.of<AuthProvider>(context, listen: false);
     double displayWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              ap.userSignOut().then(
-                    (value) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const WelcomeScreen(),
-                      ),
-                    ),
-                  );
-            },
-            icon: const Icon(Icons.exit_to_app),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       ap.userSignOut().then(
+        //             (value) => Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (context) => const WelcomeScreen(),
+        //               ),
+        //             ),
+        //           );
+        //     },
+        //     icon: const Icon(Icons.exit_to_app),
+        //   ),
+        // ],
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
@@ -382,7 +387,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _selectedPageIndex = 2;
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CategoryScreen()),
+              MaterialPageRoute(builder: (context) => CategoryScreen(firebaseuser: user!)),
             );
             // CategoryScreen());
           }),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:minor/screens/phone_screen.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
-
+  
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -46,30 +47,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   width: double.infinity,
                   height: 45,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: ColorConst.primaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () async {
-                        if (ap.isSignedIn == true) {
-                          await ap.getDataFromSP().whenComplete(
-                                () => Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomeScreen(),
-                                  ),
+                    style: ElevatedButton.styleFrom(
+                        primary: ColorConst.primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {
+                      if (ap.isSignedIn == true) {
+                      
+                        await ap.getDataFromSP().whenComplete(
+                              () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      HomeScreen(),
                                 ),
-                              );
-                        } else {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PhoneScreen(),
-                            ),
-                          );
-                        }
-                      },
-                      child: Text("Get Started")),
+                              ),
+                            );
+                      } else {
+                        print("no");
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PhoneScreen(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Text("Get Started"),
+                  ),
                 ),
               ],
             ),

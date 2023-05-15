@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:minor/screens/details_screen.dart';
@@ -8,10 +9,19 @@ import '../../const/stream_const.dart';
 import '../../utils/app_sizes.dart';
 import '../../views/widgets/custom_card_widgets/custom_card_widget_1.dart';
 
-class CategoryScreen extends StatelessWidget {
-  CategoryScreen({Key? key}) : super(key: key);
+class CategoryScreen extends StatefulWidget {
+   final User firebaseuser;
+
+  const CategoryScreen({super.key, required this.firebaseuser});
+
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -77,7 +87,9 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream1,
+                           
                             );
                           },
                         ),
@@ -101,6 +113,7 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream2,
                             );
                           },
@@ -125,6 +138,7 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream3,
                             );
                           },
@@ -149,7 +163,9 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream4,
+                            
                             );
                           },
                         ),
@@ -173,6 +189,8 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream5,
                             );
                           },
@@ -197,6 +215,7 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream6,
                             );
                           },
@@ -221,6 +240,7 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream7,
                             );
                           },
@@ -245,6 +265,7 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream8,
                             );
                           },
@@ -269,6 +290,7 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream9,
                             );
                           },
@@ -293,6 +315,7 @@ class CategoryScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
+                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream10,
                             );
                           },

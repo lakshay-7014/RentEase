@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:minor/screens/pages/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -209,7 +210,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       (value) => Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                            builder: (context) =>  HomeScreen(),
                           ),
                           (route) => false),
                     ),
