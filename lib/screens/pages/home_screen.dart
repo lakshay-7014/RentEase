@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //statusBarColor: Colors.transparent,
         ),
         shape: RoundedRectangleBorder(
+          
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(9 * 3),
           ),
@@ -292,16 +293,19 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 160,
             color: ColorConst.errorPageStatusBarColor,
           ),
+          SizedBox(height: 5),
           Container(
             height: 140,
             width: 160,
             color: ColorConst.errorPageStatusBarColor,
           ),
+          SizedBox(height: 5),
           Container(
             height: 140,
             width: 160,
             color: ColorConst.errorPageStatusBarColor,
           ),
+          SizedBox(height: 5),
           Container(
             height: 140,
             width: 160,

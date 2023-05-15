@@ -67,6 +67,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                 height: 30,
               ),
               TextFormField(
+                maxLength: 10,
                 controller: countryController,
                 style: TextStyle(
                   fontSize: 18,
@@ -77,7 +78,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                     countryController.text = value;
                   });
                 },
-                decoration: InputDecoration(
+                decoration: InputDecoration(counterText: "",
                   hintText: " Enter phone number",
                   hintStyle: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -120,7 +121,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                       ),
                     ),
                   ),
-                  suffixIcon: countryController.text.length > 9
+                  suffixIcon: countryController.text.length ==10
                       ? Container(
                           height: 30,
                           width: 30,

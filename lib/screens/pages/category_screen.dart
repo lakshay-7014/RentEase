@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:minor/screens/details_screen.dart';
+import 'package:minor/screens/pages/home_screen.dart';
 import '../../const/color_const.dart';
 import '../../const/image_const.dart';
 import '../../const/stream_const.dart';
@@ -21,7 +23,7 @@ class CategoryScreen extends StatelessWidget {
           statusBarColor: ColorConst.primaryColor,
           //statusBarColor: Colors.transparent,
         ),
-        shape: RoundedRectangleBorder(
+        shape:const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(9 * 3),
           ),
@@ -36,7 +38,7 @@ class CategoryScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Text(
+               const  Text(
                   "RENTEASE",
                   style: TextStyle(
                     fontSize: 30,
@@ -70,7 +72,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                      Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream1,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -85,7 +96,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                       Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream2,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -100,7 +120,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                      Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream3,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -115,7 +144,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                      Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream4,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -130,7 +168,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                      Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream5,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -145,7 +192,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                      Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream6,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -160,7 +216,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                       Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream7,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -175,7 +240,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                      Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream8,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -190,7 +264,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                     Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream9,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
@@ -205,7 +288,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                      //onTap(1, context);
+                      Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Details(
+                                    category: StreamConst.stream10,
+                                  );
+                                },
+                              ),
+                            );
                     },
                   ),
                 ),
