@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../const/color_const.dart';
-import '../../const/image_const.dart';
+
 import '../../utils/app_sizes.dart';
 
 class CategoryList extends StatelessWidget {
@@ -15,7 +15,7 @@ class CategoryList extends StatelessWidget {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        toolbarHeight: 35,
+        toolbarHeight: 45,
         backgroundColor: ColorConst.primaryColor,
         systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
           statusBarColor: ColorConst.primaryColor,
@@ -30,10 +30,10 @@ class CategoryList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              ImageConst.appLogo,
-              height: AppSizes.height10 * 9,
-            ),
+            // Image.asset(
+            //   ImageConst.appLogo,
+            //   height: AppSizes.height10 * 9,
+            // ),
             Column(
               children: [
                 Text(
@@ -42,11 +42,11 @@ class CategoryList extends StatelessWidget {
                     fontSize: 30,
                   ),
                 ),
-                SizedBox(height: AppSizes.height10 * 1.5),
-                Image.asset(
-                  ImageConst.appLogo,
-                  height: AppSizes.height10 * 2.7,
-                ),
+                // SizedBox(height: AppSizes.height10 * 1.5),
+                // Image.asset(
+                //   ImageConst.appLogo,
+                //   height: AppSizes.height10 * 2.7,
+                // ),
               ],
             ),
           ],

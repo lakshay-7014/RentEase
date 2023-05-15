@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../auth/auth_provider.dart';
 import '../../const/color_const.dart';
-import '../../views/widgets/custom_button.dart';
+
 import 'home_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {

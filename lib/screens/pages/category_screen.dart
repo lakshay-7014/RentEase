@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:minor/screens/details_screen.dart';
 import 'package:minor/screens/pages/home_screen.dart';
 import '../../const/color_const.dart';
-import '../../const/image_const.dart';
+
 import '../../const/stream_const.dart';
 import '../../utils/app_sizes.dart';
 import '../../views/widgets/custom_card_widgets/custom_card_widget_1.dart';
@@ -17,13 +17,13 @@ class CategoryScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        toolbarHeight: 35,
+        toolbarHeight: 45,
         backgroundColor: ColorConst.primaryColor,
         systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
           statusBarColor: ColorConst.primaryColor,
           //statusBarColor: Colors.transparent,
         ),
-        shape:const RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(9 * 3),
           ),
@@ -32,23 +32,23 @@ class CategoryScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              ImageConst.appLogo,
-              height: AppSizes.height10 * 9,
-            ),
+            // Image.asset(
+            //   ImageConst.appLogo,
+            //   height: AppSizes.height10 * 9,
+            // ),
             Column(
               children: [
-               const  Text(
+                const Text(
                   "RENTEASE",
                   style: TextStyle(
                     fontSize: 30,
                   ),
                 ),
-                SizedBox(height: AppSizes.height10 * 1.5),
-                Image.asset(
-                  ImageConst.appLogo,
-                  height: AppSizes.height10 * 2.7,
-                ),
+                // SizedBox(height: AppSizes.height10 * 1.5),
+                // Image.asset(
+                //   ImageConst.appLogo,
+                //   height: AppSizes.height10 * 2.7,
+                // ),
               ],
             ),
           ],
@@ -73,15 +73,15 @@ class CategoryScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream1,
-                                  );
-                                },
-                              ),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream1,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -96,16 +96,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream2,
-                                  );
-                                },
-                              ),
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream2,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -121,15 +121,15 @@ class CategoryScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream3,
-                                  );
-                                },
-                              ),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream3,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -145,15 +145,15 @@ class CategoryScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream4,
-                                  );
-                                },
-                              ),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream4,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -169,15 +169,15 @@ class CategoryScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream5,
-                                  );
-                                },
-                              ),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream5,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -193,15 +193,15 @@ class CategoryScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream6,
-                                  );
-                                },
-                              ),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream6,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -216,16 +216,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream7,
-                                  );
-                                },
-                              ),
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream7,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -241,15 +241,15 @@ class CategoryScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream8,
-                                  );
-                                },
-                              ),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream8,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -264,16 +264,16 @@ class CategoryScreen extends StatelessWidget {
                       height: 80,
                     ),
                     onPressed: () {
-                     Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream9,
-                                  );
-                                },
-                              ),
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream9,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -289,15 +289,15 @@ class CategoryScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Details(
-                                    category: StreamConst.stream10,
-                                  );
-                                },
-                              ),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Details(
+                              category: StreamConst.stream10,
                             );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
