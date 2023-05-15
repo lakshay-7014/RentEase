@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:minor/screens/details_screen.dart';
 import 'package:minor/screens/pages/home_screen.dart';
 import '../../const/color_const.dart';
-import '../../const/image_const.dart';
+
 import '../../const/stream_const.dart';
 import '../../utils/app_sizes.dart';
 import '../../views/widgets/custom_card_widgets/custom_card_widget_1.dart';
@@ -32,10 +32,10 @@ class CategoryScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              ImageConst.appLogo,
-              height: AppSizes.height10 * 9,
-            ),
+            // Image.asset(
+            //   ImageConst.appLogo,
+            //   height: AppSizes.height10 * 9,
+            // ),
             Column(
               children: [
                 const Text(
@@ -44,11 +44,11 @@ class CategoryScreen extends StatelessWidget {
                     fontSize: 30,
                   ),
                 ),
-                SizedBox(height: AppSizes.height10 * 1.5),
-                Image.asset(
-                  ImageConst.appLogo,
-                  height: AppSizes.height10 * 2.7,
-                ),
+                // SizedBox(height: AppSizes.height10 * 1.5),
+                // Image.asset(
+                //   ImageConst.appLogo,
+                //   height: AppSizes.height10 * 2.7,
+                // ),
               ],
             ),
           ],

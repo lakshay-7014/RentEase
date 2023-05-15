@@ -8,7 +8,7 @@ import 'package:minor/screens/pages/category_list.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import '../../auth/auth_provider.dart';
-import '../../const/image_const.dart';
+
 import '../../utils/app_sizes.dart';
 import 'category_screen.dart';
 
@@ -84,10 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              ImageConst.appLogo,
-              height: AppSizes.height10 * 9,
-            ),
+            // Image.asset(
+            //   ImageConst.appLogo,
+            //   height: AppSizes.height10 * 9,
+            // ),
             Column(
               children: [
                 Text(
@@ -96,11 +96,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 30,
                   ),
                 ),
-                SizedBox(height: AppSizes.height10 * 1.5),
-                Image.asset(
-                  ImageConst.appLogo,
-                  height: AppSizes.height10 * 2.7,
-                ),
+                //SizedBox(height: AppSizes.height10 * 1.5),
+                // Image.asset(
+                //   ImageConst.appLogo,
+                //   height: AppSizes.height10 * 2.7,
+                // ),
               ],
             ),
           ],

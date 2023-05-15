@@ -18,13 +18,11 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> {
   File? imageFile;
 
-  //final ImagePicker _picker = ImagePicker();
   @override
   TextEditingController namecontroller = TextEditingController();
   TextEditingController pricecontroller = TextEditingController();
   TextEditingController descriptioncontroller = TextEditingController();
-  TextEditingController _title = TextEditingController();
-  TextEditingController _about = TextEditingController();
+
   void selectimage(ImageSource source) async {
     //  UiHelper.showloadingDialog(context, "Loading");
     try {
@@ -254,7 +252,9 @@ class _DetailsState extends State<Details> {
         height: 50,
         width: 200,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+           
+          },
           child: Text(
             "Upload",
             style: TextStyle(
@@ -276,6 +276,7 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        controller: namecontroller,
         decoration: InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(
@@ -302,6 +303,7 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        controller: pricecontroller,
         decoration: InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(
@@ -327,8 +329,10 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        controller: descriptioncontroller,
         maxLines: 5,
         style: TextStyle(
+
           fontSize: 16,
         ),
         decoration: const InputDecoration(

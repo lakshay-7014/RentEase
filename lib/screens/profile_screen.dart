@@ -6,7 +6,7 @@ import '../auth/auth_provider.dart';
 import '../const/color_const.dart';
 import '../models/user_model.dart';
 import '../utils/utils.dart';
-import '../views/widgets/custom_button.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
