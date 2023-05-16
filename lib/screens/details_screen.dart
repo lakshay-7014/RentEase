@@ -78,7 +78,7 @@ class _DetailsState extends State<Details> {
                   Navigator.pop(context);
                   selectimage(ImageSource.gallery);
                 },
-                title: const Text("Select From Galary"),
+                title: const Text("Select From Gallary"),
                 leading: const Icon(Icons.photo_album_outlined),
               ),
               ListTile(
