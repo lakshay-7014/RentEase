@@ -49,7 +49,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             Column(
               children: [
                 const Text(
-                  "RENTEASE",
+                  "CATEGORY",
                   style: TextStyle(
                     fontSize: 30,
                   ),

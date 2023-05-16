@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:minor/models/form_model.dart';
 import 'package:minor/screens/pages/category_list.dart';
+import 'package:minor/screens/pages/my_ads.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
 // import 'package:provider/provider.dart';
 // import '../../auth/auth_provider.dart';
@@ -15,6 +16,7 @@ import 'package:minor/screens/pages/welcome_screen.dart';
 import '../../utils/app_sizes.dart';
 import '../../views/widgets/category_filter.dart';
 import 'category_screen.dart';
+import 'chats_home.dart';
 
 class HomeScreen extends StatefulWidget {
   static double height10 = 0.0;
@@ -197,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 as Map<String, dynamic>);
                         //print(index.toString());
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Card(
                             color: Color.fromARGB(255, 229, 238, 238),
                             child: Row(
@@ -209,10 +211,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: NetworkImage(
-                                              formmodel.profilepic.toString()))),
+                                          image: NetworkImage(formmodel
+                                              .profilepic
+                                              .toString()))),
                                 ),
-                                SizedBox(width: 20,),
+                                SizedBox(
+                                  width: 20,
+                                ),
                                 Column(
                                   children: [
                                     Text(
@@ -221,9 +226,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    Text("₹"+formmodel.price.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black, ))
+                                    Text(
+                                      "₹" +
+                                          formmodel.price.toString() +
+                                          " " +
+                                          formmodel.duration.toString(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text("📍" + formmodel.location.toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ))
                                   ],
                                 )
                               ],
@@ -267,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           height: kBottomNavigationBarHeight * 1.1,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(
                 top: BorderSide(
@@ -291,7 +306,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.chat_bubble),
+                  icon: GestureDetector(
+                    onTap: () {
+                     
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ChatHome(user: user!);
+                          },
+                        ),
+                      );
+                    },
+                    child: Icon(Icons.chat_bubble)),
                   label: 'Chats',
                 ),
                 BottomNavigationBarItem(
@@ -300,8 +327,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'Rent Now',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.favorite_border,
+                  icon: GestureDetector(
+                    onTap: () {
+                       Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MyAds(user: user!);
+                          },
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.favorite_border,
+                    ),
                   ),
                   label: 'My Ads',
                 ),
