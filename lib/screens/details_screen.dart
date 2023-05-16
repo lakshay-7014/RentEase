@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Details extends StatefulWidget {
   final String category;
   final User firebaseuser;
+  
 
   const Details(
       {super.key, required this.category, required this.firebaseuser});
@@ -26,19 +27,18 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   File? imageFile;
-
+Color color = ColorConst.primaryColor;
   @override
   TextEditingController namecontroller = TextEditingController();
   TextEditingController pricecontroller = TextEditingController();
   TextEditingController descriptioncontroller = TextEditingController();
 
   void selectimage(ImageSource source) async {
-      UiHelper.showloadingDialog(context, "Loading");
+    UiHelper.showloadingDialog(context, "Loading");
     try {
       XFile? pickedfile = await ImagePicker().pickImage(source: source);
       cropimage(pickedfile);
     } catch (e) {
-      
       Navigator.pop(context);
       UiHelper.showAlertDialog(context, "Error!", e.toString());
     }
@@ -56,13 +56,13 @@ class _DetailsState extends State<Details> {
         setState(() {
           imageFile = File(cropfile.path);
 
-        //  print(imageFile);
+          //  print(imageFile);
         });
         Navigator.pop(context);
       }
     } catch (e) {
       //print(e.toString());
-       UiHelper.showAlertDialog(context, "Error!te", e.toString());
+      UiHelper.showAlertDialog(context, "Error!te", e.toString());
     }
   }
 
@@ -101,23 +101,20 @@ class _DetailsState extends State<Details> {
     if (name == "" || price == "" || description == "") {
       UiHelper.showAlertDialog(
           context, "Data Incomplete", "All fields are not Completed");
-    } else if(imageFile==null){
-       UiHelper.showAlertDialog(
+    } else if (imageFile == null) {
+      UiHelper.showAlertDialog(
           context, "Data Incomplete", "please select the image");
-    }
-    else {
+    } else {
       setdata(name: name, price: price, description: description);
     }
   }
 
   void setdata(
-    
       {required String name,
       required String price,
       required String description}) async {
-      
     try {
-        UiHelper.showloadingDialog(context, "Uploading ");
+      UiHelper.showloadingDialog(context, "Uploading ");
       DateTime now = DateTime.now();
       String filename = now.toString();
       UploadTask uploadtask = FirebaseStorage.instance
@@ -186,14 +183,11 @@ class _DetailsState extends State<Details> {
       ),
       body: SingleChildScrollView(
         child: Column(
-        
           children: [
-           
             imageProfile(),
             nameTextField(),
             Locationfield(),
             professionTextField(),
-
             aboutTextField(),
             SizedBox(
               height: 10,
@@ -216,7 +210,6 @@ class _DetailsState extends State<Details> {
             child: Container(
               height: 250,
               width: double.infinity,
-
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.fill,
@@ -224,15 +217,12 @@ class _DetailsState extends State<Details> {
                           ? FileImage(imageFile!)
                           : AssetImage('assets/images/img12.png')
                               as ImageProvider)),
-              
             ),
           ),
-          
         ],
       ),
     );
   }
-
 
   Widget submitfield() {
     return Center(
@@ -259,53 +249,58 @@ class _DetailsState extends State<Details> {
       ),
     );
   }
-Widget Locationfield() {
+
+  Widget Locationfield() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         controller: namecontroller,
-        decoration: const InputDecoration(
+        decoration:  InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(
-            color: Colors.blueAccent,
+            color: color,
           )),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.blueAccent,
+              color: color,
               width: 2,
             ),
           ),
           prefixIcon: Icon(
             Icons.location_on,
-            color: Colors.blueAccent,
+            color: color,
           ),
           labelText: "Location/city",
+           labelStyle: TextStyle(color: ColorConst.primaryColor)
           //helperText: "Name can't be empty",
         ),
       ),
     );
   }
+
   Widget nameTextField() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         controller: namecontroller,
-        decoration: const InputDecoration(
+        decoration:  InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(
-            color: Colors.blueAccent,
+            color: color,
           )),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.blueAccent,
+              color: color,
               width: 2,
             ),
           ),
+         
           // prefixIcon: Icon(
           //   Icons.present_to_all_sharp,
           //   color: Colors.blueAccent,
           // ),
           labelText: "Product_Name",
+           labelStyle: TextStyle(color: ColorConst.primaryColor)
           //helperText: "Name can't be empty",
         ),
       ),
@@ -317,24 +312,24 @@ Widget Locationfield() {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         controller: pricecontroller,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(
-              borderSide: BorderSide(
-            color: Colors.black,
-          )),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-            color: ColorConst.primaryColor,
-            width: 2,
-          )),
-          prefixIcon: Icon(
-            Icons.currency_rupee_outlined,
-            color: ColorConst.primaryColor,
-          ),
-          labelText: "Price",
-          labelStyle: TextStyle(color: ColorConst.primaryColor)
-          //helperText: "Per_Month",
-        ),
+        decoration:  InputDecoration(
+            border: const OutlineInputBorder(
+                borderSide: BorderSide(
+              color: Colors.black,
+            )),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+              color: ColorConst.primaryColor,
+              width: 2,
+            )),
+            prefixIcon: Icon(
+              Icons.currency_rupee_outlined,
+              color: color,
+            ),
+            labelText: "Price",
+            labelStyle: TextStyle(color: ColorConst.primaryColor),
+            //helperText: "Per_Month",
+            ),
       ),
     );
   }
@@ -345,23 +340,22 @@ Widget Locationfield() {
       child: TextFormField(
         controller: descriptioncontroller,
         maxLines: 5,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
         ),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               borderSide: BorderSide(
             color: Colors.teal,
           )),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-            color: Colors.blueAccent,
+            color: color,
             width: 2,
           )),
           hintText: "Description about your product",
-          //labelText: "Description",
-          //helperText: "Write about your product",
+         
         ),
       ),
     );
