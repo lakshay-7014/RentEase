@@ -5,6 +5,8 @@ class FormModel {
   String? profilepic;
   String? description;
   String? category;
+  String? duration;
+  String? location;
 
   FormModel(
       {this.uid,
@@ -12,7 +14,9 @@ class FormModel {
       this.price,
       this.profilepic,
       this.description,
-      this.category});
+      this.category,
+      this.duration,
+      this.location});
 
   FormModel.fromMap(Map<String, dynamic> map) {
     uid = map["uid"];
@@ -21,6 +25,8 @@ class FormModel {
     profilepic = map["profilepic"];
     description = map["description"];
     category = map["category"];
+    duration = map["duration"];
+    location = map["location"];
   }
 
   Map<String, dynamic> toMap() {
@@ -30,7 +36,9 @@ class FormModel {
       "price": price,
       "profilepic": profilepic,
       "description": description,
-      "category":category,
+      "category": category,
+      "duration": duration,
+      "location": location,
     };
   }
 }
