@@ -29,7 +29,7 @@ class _MyAdsState extends State<MyAds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbar(name: "MY ADDS"),
+      appBar: appbar(name: "MY ADS"),
       body: Padding(
         padding: const EdgeInsets.only(top: 12),
         child: StreamBuilder(
@@ -111,7 +111,7 @@ class _MyAdsState extends State<MyAds> {
                   return Text(snapshot.error.toString());
                 } else {
                  // print(1);
-                  return const Text("No ADDS");
+                  return const Text("No ADS");
                 }
               } else {
                 return const CircularProgressIndicator.adaptive();
