@@ -16,7 +16,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Details extends StatefulWidget {
   final String category;
   final User firebaseuser;
-  
 
   const Details(
       {super.key, required this.category, required this.firebaseuser});
@@ -27,11 +26,14 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   File? imageFile;
-Color color = ColorConst.primaryColor;
+  Color color = ColorConst.primaryColor;
   @override
   TextEditingController namecontroller = TextEditingController();
   TextEditingController pricecontroller = TextEditingController();
   TextEditingController descriptioncontroller = TextEditingController();
+  TextEditingController locationcontroller = TextEditingController();
+  TextEditingController durationcontroller = TextEditingController();
+  String dropdownValue = 'Per Day';
 
   void selectimage(ImageSource source) async {
     UiHelper.showloadingDialog(context, "Loading");
@@ -97,22 +99,35 @@ Color color = ColorConst.primaryColor;
     String name = namecontroller.text.trim();
     String price = pricecontroller.text.trim();
     String description = descriptioncontroller.text.trim();
+    String location = locationcontroller.text.trim();
+    String duration = durationcontroller.text.trim();
 
-    if (name == "" || price == "" || description == "") {
+    if (name == "" ||
+        price == "" ||
+        description == "" ||
+        location == "" ||
+        duration == "") {
       UiHelper.showAlertDialog(
           context, "Data Incomplete", "All fields are not Completed");
     } else if (imageFile == null) {
       UiHelper.showAlertDialog(
-          context, "Data Incomplete", "please select the image");
+          context, "Upload Image !!", "please select the image");
     } else {
-      setdata(name: name, price: price, description: description);
+      setdata(
+          name: name,
+          price: price,
+          description: description,
+          duration: duration,
+          location: location);
     }
   }
 
   void setdata(
       {required String name,
       required String price,
-      required String description}) async {
+      required String description,
+      required String duration,
+      required String location}) async {
     try {
       UiHelper.showloadingDialog(context, "Uploading ");
       DateTime now = DateTime.now();
@@ -131,6 +146,8 @@ Color color = ColorConst.primaryColor;
           price: price,
           profilepic: imageurl,
           description: description,
+          duration: duration,
+          location: location,
           uid: uid);
       await FirebaseFirestore.instance
           .collection("product")
@@ -186,8 +203,9 @@ Color color = ColorConst.primaryColor;
           children: [
             imageProfile(),
             nameTextField(),
-            Locationfield(),
             professionTextField(),
+            durationfield(),
+            Locationfield(),
             aboutTextField(),
             SizedBox(
               height: 10,
@@ -208,7 +226,7 @@ Color color = ColorConst.primaryColor;
               showPhotoOption();
             },
             child: Container(
-              height: 250,
+              height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
                   image: DecorationImage(
@@ -254,26 +272,26 @@ Color color = ColorConst.primaryColor;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
-        controller: namecontroller,
-        decoration:  InputDecoration(
-          border: OutlineInputBorder(
-              borderSide: BorderSide(
-            color: color,
-          )),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+        controller: locationcontroller,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
               color: color,
-              width: 2,
+            )),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: color,
+                width: 2,
+              ),
             ),
-          ),
-          prefixIcon: Icon(
-            Icons.location_on,
-            color: color,
-          ),
-          labelText: "Location/city",
-           labelStyle: TextStyle(color: ColorConst.primaryColor)
-          //helperText: "Name can't be empty",
-        ),
+            prefixIcon: Icon(
+              Icons.location_on,
+              color: color,
+            ),
+            labelText: "Location/city",
+            labelStyle: TextStyle(color: ColorConst.primaryColor)
+            //helperText: "Name can't be empty",
+            ),
       ),
     );
   }
@@ -283,25 +301,51 @@ Color color = ColorConst.primaryColor;
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         controller: namecontroller,
-        decoration:  InputDecoration(
-          border: OutlineInputBorder(
-              borderSide: BorderSide(
-            color: color,
-          )),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
               color: color,
-              width: 2,
+            )),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: color,
+                width: 2,
+              ),
             ),
+            prefixIcon: Icon(
+              Icons.adb_outlined,
+              color: color,
+            ),
+            labelText: "Product_Name",
+            labelStyle: TextStyle(color: ColorConst.primaryColor)
+            //helperText: "Name can't be empty",
+            ),
+      ),
+    );
+  }
+
+  Widget durationfield() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: TextFormField(
+        controller: durationcontroller,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.black,
+          )),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+            color: ColorConst.primaryColor,
+            width: 2,
+          )),
+          prefixIcon: Icon(
+            Icons.access_time,
+            color: color,
           ),
-         
-          // prefixIcon: Icon(
-          //   Icons.present_to_all_sharp,
-          //   color: Colors.blueAccent,
-          // ),
-          labelText: "Product_Name",
-           labelStyle: TextStyle(color: ColorConst.primaryColor)
-          //helperText: "Name can't be empty",
+          labelText: "Duration",
+          labelStyle: TextStyle(color: ColorConst.primaryColor),
+          //helperText: "Per_Month",
         ),
       ),
     );
@@ -312,24 +356,24 @@ Color color = ColorConst.primaryColor;
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         controller: pricecontroller,
-        decoration:  InputDecoration(
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(
-              color: Colors.black,
-            )),
-            focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-              color: ColorConst.primaryColor,
-              width: 2,
-            )),
-            prefixIcon: Icon(
-              Icons.currency_rupee_outlined,
-              color: color,
-            ),
-            labelText: "Price",
-            labelStyle: TextStyle(color: ColorConst.primaryColor),
-            //helperText: "Per_Month",
-            ),
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.black,
+          )),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+            color: ColorConst.primaryColor,
+            width: 2,
+          )),
+          prefixIcon: Icon(
+            Icons.currency_rupee_outlined,
+            color: color,
+          ),
+          labelText: "Price",
+          labelStyle: TextStyle(color: ColorConst.primaryColor),
+          //helperText: "Per_Month",
+        ),
       ),
     );
   }
@@ -355,7 +399,6 @@ Color color = ColorConst.primaryColor;
             width: 2,
           )),
           hintText: "Description about your product",
-         
         ),
       ),
     );
