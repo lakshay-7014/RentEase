@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (datasnapshot.docs.length > 0) {
                     print(datasnapshot.docs.length.toString());
                     return ListView.builder(
-                       physics: NeverScrollableScrollPhysics(), 
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: datasnapshot.docs.length,
                       itemBuilder: (context, index) {
@@ -196,7 +196,40 @@ class _HomeScreenState extends State<HomeScreen> {
                             datasnapshot.docs[index].data()
                                 as Map<String, dynamic>);
                         //print(index.toString());
-                        return ListTile(title: Text("${formmodel.productName.toString()}",style: TextStyle(color: Colors.black,fontSize: 50)));
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:10),
+                          child: Card(
+                            color: Color.fromARGB(255, 229, 238, 238),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 150,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(
+                                              formmodel.profilepic.toString()))),
+                                ),
+                                SizedBox(width: 20,),
+                                Column(
+                                  children: [
+                                    Text(
+                                      formmodel.productName.toString(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text("₹"+formmodel.price.toString(),
+                                  style: TextStyle(
+                                      color: Colors.black, ))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
                       },
                     );
                   } else {

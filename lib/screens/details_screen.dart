@@ -191,6 +191,7 @@ class _DetailsState extends State<Details> {
            
             imageProfile(),
             nameTextField(),
+            Locationfield(),
             professionTextField(),
 
             aboutTextField(),
@@ -258,13 +259,38 @@ class _DetailsState extends State<Details> {
       ),
     );
   }
-
+Widget Locationfield() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: TextFormField(
+        controller: namecontroller,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.blueAccent,
+          )),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.blueAccent,
+              width: 2,
+            ),
+          ),
+          prefixIcon: Icon(
+            Icons.location_on,
+            color: Colors.blueAccent,
+          ),
+          labelText: "Location/city",
+          //helperText: "Name can't be empty",
+        ),
+      ),
+    );
+  }
   Widget nameTextField() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         controller: namecontroller,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(
             color: Colors.blueAccent,
@@ -291,22 +317,23 @@ class _DetailsState extends State<Details> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         controller: pricecontroller,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(
             color: Colors.black,
           )),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-            color: Colors.blueAccent,
+            color: ColorConst.primaryColor,
             width: 2,
           )),
-          // prefixIcon: Icon(
-          //   Icons.monitor_heart,
-          //   color: Colors.blueAccent,
-          // ),
+          prefixIcon: Icon(
+            Icons.currency_rupee_outlined,
+            color: ColorConst.primaryColor,
+          ),
           labelText: "Price",
-          helperText: "Per_Month",
+          labelStyle: TextStyle(color: ColorConst.primaryColor)
+          //helperText: "Per_Month",
         ),
       ),
     );
