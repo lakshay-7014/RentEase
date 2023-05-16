@@ -1,25 +1,28 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:minor/const/color_const.dart';
+import 'package:minor/models/form_model.dart';
 import 'package:minor/screens/pages/category_list.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
 // import 'package:provider/provider.dart';
 // import '../../auth/auth_provider.dart';
 
 import '../../utils/app_sizes.dart';
+import '../../views/widgets/category_filter.dart';
 import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
- 
-
   static double height10 = 0.0;
   static double width10 = 0.0;
 
-  const HomeScreen({super.key, });
+  const HomeScreen({
+    super.key,
+  });
 
   static void mediaQueryHeightWidth(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -35,7 +38,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var currentIndex = 0;
   int _selectedPageIndex = 0;
-User? user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
@@ -50,7 +53,6 @@ User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    
     // final ap = Provider.of<AuthProvider>(context, listen: false);
     double displayWidth = MediaQuery.of(context).size.width;
 
@@ -113,40 +115,8 @@ User? user = FirebaseAuth.instance.currentUser;
       ),
       body: ListView(
         // mainAxisAlignment: MainAxisAlignment.start,
-        shrinkWrap: true,
+        //shrinkWrap: true,
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.all(10),
-          //   child: TextField(
-          //     // keyboardType: keyboardType,
-          //     // controller: controller,
-          //     // inputFormatters: inputFormatters,
-          //     // textCapitalization: TextCapitalization.sentences,
-          //     // maxLines: maxLines,
-          //     // validator: validator,
-          //     // obscureText: obscureText,
-          //     cursorColor: Colors.black12,
-          //     decoration: InputDecoration(
-          //       hoverColor: Colors.white,
-          //       focusColor: Colors.white,
-          //       fillColor: Colors.white,
-          //       contentPadding: const EdgeInsets.all(12),
-          //       hintText: "Search your product",
-          //       focusedBorder: OutlineInputBorder(
-          //         borderSide: BorderSide(
-          //           color: Colors.black38,
-          //         ),
-          //         borderRadius: BorderRadius.circular(15),
-          //       ),
-          //       border: OutlineInputBorder(
-          //         borderSide: BorderSide(
-          //           color: Colors.white,
-          //         ),
-          //         borderRadius: BorderRadius.circular(15),
-          //       ),
-          //     ),
-          //   ),
-          // ),
           CarouselSlider(
             items: imgList
                 .map((item) => Container(
@@ -204,117 +174,56 @@ User? user = FirebaseAuth.instance.currentUser;
               ],
             ),
           ),
-          Container(
-            width: 90,
-            height: 90,
-            child: ListView(
-              // shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/img1.png',
-                      ),
-                      Text("Cars")
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: Column(
-                    children: [
-                      Image.asset('assets/images/img2.png'),
-                      Text("Home")
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Container(
-                  width: 52,
-                  height: 50,
-                  child: Column(
-                    children: [
-                      Image.asset('assets/images/img3.png'),
-                      Text("Mobiles")
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: Column(
-                    children: [
-                      Image.asset('assets/images/img4.png'),
-                      Text("Jobs")
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: Column(
-                    children: [
-                      Image.asset('assets/images/img5.png'),
-                      Text("Bikes")
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: Column(
-                    children: [
-                      Image.asset('assets/images/img6.png'),
-                      Text("Electronics")
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          filter(),
           //expend error
-          Container(
-            height: 140,
-            width: 160,
-            color: ColorConst.errorPageStatusBarColor,
-          ),
-          SizedBox(height: 5),
-          Container(
-            height: 140,
-            width: 160,
-            color: ColorConst.errorPageStatusBarColor,
-          ),
-          SizedBox(height: 5),
-          Container(
-            height: 140,
-            width: 160,
-            color: ColorConst.errorPageStatusBarColor,
-          ),
-          SizedBox(height: 5),
-          Container(
-            height: 140,
-            width: 160,
-            color: ColorConst.errorPageStatusBarColor,
-          ),
+          // TODO:
+
+          StreamBuilder(
+            stream:
+                FirebaseFirestore.instance.collection("product").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  QuerySnapshot datasnapshot = snapshot.data as QuerySnapshot;
+                  if (datasnapshot.docs.length > 0) {
+                    print(datasnapshot.docs.length.toString());
+                    return ListView.builder(
+                       physics: NeverScrollableScrollPhysics(), 
+                      shrinkWrap: true,
+                      itemCount: datasnapshot.docs.length,
+                      itemBuilder: (context, index) {
+                        FormModel formmodel = FormModel.fromMap(
+                            datasnapshot.docs[index].data()
+                                as Map<String, dynamic>);
+                        //print(index.toString());
+                        return ListTile(title: Text("${formmodel.productName.toString()}",style: TextStyle(color: Colors.black,fontSize: 50)));
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("NO Add's Uploaded",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w300)),
+                    );
+                  }
+                } else if (snapshot.hasError) {
+                  return const Center(
+                      child: Text("check your internet connection"));
+                } else {
+                  return const Center(
+                    child: Text("No Product available"),
+                  );
+                }
+              } else {
+                return const SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: CircularProgressIndicator.adaptive(
+                      value: 40,
+                    ));
+              }
+            },
+          )
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -387,7 +296,8 @@ User? user = FirebaseAuth.instance.currentUser;
             _selectedPageIndex = 2;
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CategoryScreen(firebaseuser: user!)),
+              MaterialPageRoute(
+                  builder: (context) => CategoryScreen(firebaseuser: user!)),
             );
             // CategoryScreen());
           }),
