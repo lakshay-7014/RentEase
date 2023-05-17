@@ -21,9 +21,33 @@ class MyAds extends StatefulWidget {
 class _MyAdsState extends State<MyAds> {
   int _selectedPageIndex = 3;
   void _selectPage(int index) {
-    setState(() {
-      _selectedPageIndex = index;
-    });
+    if(index==0){
+  Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen(category: "NULL",);
+                          },
+                        ),
+                      );
+    }else if(index==1){
+      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ChatHome(user: widget.user);
+                            },
+                          ),
+                        );
+
+    }else if(index==4){
+
+    }
+  
+    // setState(() {
+    //   _selectedPageIndex = index;
+    // });
   }
 
   @override
@@ -53,6 +77,7 @@ class _MyAdsState extends State<MyAds> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Card(
+                              shape:RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(20),) ,
                               color: Color.fromARGB(255, 229, 238, 238),
                               child: Row(
                                 children: [
@@ -144,37 +169,13 @@ class _MyAdsState extends State<MyAds> {
               currentIndex: _selectedPageIndex,
               items: [
                 BottomNavigationBarItem(
-                  icon: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen();
-                          },
-                        ),
-                      );
-                    },
-                    child: Icon(
-                      Icons.home,
-                    ),
+                  icon: Icon(
+                    Icons.home,
                   ),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return ChatHome(user: widget.user);
-                            },
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.chat_bubble)),
+                  icon: Icon(Icons.chat_bubble),
                   label: 'Chats',
                 ),
                 const BottomNavigationBarItem(

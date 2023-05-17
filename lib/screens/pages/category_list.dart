@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:minor/screens/pages/home_screen.dart';
 
 import '../../const/color_const.dart';
 
@@ -7,6 +9,22 @@ import '../../utils/app_sizes.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({Key? key}) : super(key: key);
+
+  void navigateto({required BuildContext context, required String cat}) {
+    Navigator.pop(context);
+    Navigator.pop(context);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return HomeScreen(
+            category: cat,
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +86,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              navigateto(context: context, cat: "Cars");
+            },
           ),
         ),
         Padding(
@@ -86,7 +106,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+               navigateto(context: context, cat: "Home");
+            },
           ),
         ),
         Padding(
@@ -104,7 +126,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+               navigateto(context: context, cat: "Mobiles");
+            },
           ),
         ),
         Padding(
@@ -122,7 +146,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              navigateto(context: context, cat:"Jobs");
+            },
           ),
         ),
         Padding(
@@ -140,7 +166,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              navigateto(context: context, cat: "Bikes");
+            },
           ),
         ),
         Padding(
@@ -158,7 +186,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              navigateto(context: context, cat: "Electronics");
+            },
           ),
         ),
         Padding(
@@ -176,7 +206,10 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+
+              navigateto(context: context, cat: "Furnitures");
+            },
           ),
         ),
         Padding(
@@ -188,13 +221,16 @@ class CategoryList extends StatelessWidget {
               width: 60,
             ),
             title: Text(
-              "Clothes",
+              "Fashion",
               style: TextStyle(
                 fontSize: 15,
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+
+              navigateto(context: context, cat: "Fashion");
+            },
           ),
         ),
         Padding(
@@ -212,7 +248,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              navigateto(context: context, cat: "Books");
+            },
           ),
         ),
         Padding(
@@ -230,79 +268,9 @@ class CategoryList extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: Image.asset(
-              'assets/images/img10.png',
-              height: 60,
-              width: 60,
-            ),
-            title: Text(
-              "Cars",
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: Image.asset(
-              'assets/images/img10.png',
-              height: 60,
-              width: 60,
-            ),
-            title: Text(
-              "Cars",
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: Image.asset(
-              'assets/images/img10.png',
-              height: 60,
-              width: 60,
-            ),
-            title: Text(
-              "Cars",
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: Image.asset(
-              'assets/images/img10.png',
-              height: 60,
-              width: 60,
-            ),
-            title: Text(
-              "Cars",
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              navigateto(context: context, cat: "Sperts");
+            },
           ),
         ),
       ]),

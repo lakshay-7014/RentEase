@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:minor/views/widgets/category_filter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
 import '../screens/otp_screen.dart';
@@ -53,6 +54,7 @@ class AuthProvider extends ChangeNotifier {
             throw Exception(error.message);
           },
           codeSent: (verificationId, forceResendingToken) {
+            Navigator.pop(context);
             Navigator.push(
               context,
               MaterialPageRoute(

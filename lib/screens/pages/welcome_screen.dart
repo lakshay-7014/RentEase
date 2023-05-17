@@ -56,7 +56,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomeScreen(),
+
+                                  builder: (context) =>
+                                      HomeScreen(category: "NULL"),
+
+                                  
+
                                 ),
                               ),
                             );
