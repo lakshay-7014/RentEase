@@ -18,7 +18,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
-  
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -53,13 +52,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
                       if (ap.isSignedIn == true) {
-                      
                         await ap.getDataFromSP().whenComplete(
                               () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
+
                                   builder: (context) =>
                                       HomeScreen(category: "NULL"),
+
+                                  
+
                                 ),
                               ),
                             );
