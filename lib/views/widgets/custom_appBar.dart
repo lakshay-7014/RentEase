@@ -5,7 +5,6 @@ import '../../const/color_const.dart';
 
 AppBar appbar({required String name}) {
   return AppBar(
-   
     automaticallyImplyLeading: false,
     elevation: 0,
     centerTitle: true,
@@ -30,7 +29,8 @@ AppBar appbar({required String name}) {
         // ),
         Column(
           children: [
-            Text(name,
+            Text(
+              name,
               style: const TextStyle(
                 fontSize: 30,
               ),

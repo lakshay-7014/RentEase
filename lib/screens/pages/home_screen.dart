@@ -9,10 +9,7 @@ import 'package:minor/const/color_const.dart';
 import 'package:minor/models/form_model.dart';
 import 'package:minor/screens/pages/category_list.dart';
 import 'package:minor/screens/pages/my_ads.dart';
-import 'package:minor/screens/pages/welcome_screen.dart';
-// import 'package:provider/provider.dart';
-// import '../../auth/auth_provider.dart';
-import '../../utils/app_sizes.dart';
+import 'package:minor/screens/pages/user_detail_screen.dart';
 import '../../views/widgets/category_filter.dart';
 import 'category_screen.dart';
 import 'chats_home.dart';
@@ -71,7 +68,17 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       );
-    } else if (index == 4) {}
+    } else if (index == 4) {
+      // Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return UserDetails();
+          },
+        ),
+      );
+    }
     // setState(() {
     //   _selectedPageIndex = index;
     // });
@@ -260,12 +267,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(formmodel
-                                              .profilepic
-                                              .toString()))),
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(
+                                        formmodel.profilepic.toString(),
+                                      ),
+                                      // image: AssetImage(
+                                      //     "assets/images/img11.png"),
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 20,
@@ -273,26 +284,47 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      formmodel.productName.toString(),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "₹ " +
-                                          formmodel.price.toString() +
-                                          " " +
-                                          formmodel.duration.toString(),
-                                      style: TextStyle(
-                                        color: Colors.black,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        formmodel.productName.toString(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 23,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    Text("📍" + formmodel.location.toString(),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "₹ " +
+                                            formmodel.price.toString() +
+                                            " " +
+                                            formmodel.duration.toString(),
                                         style: TextStyle(
-                                          color: Colors.black,
-                                        ))
+                                          color: Colors.green,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.location_on,
+                                            size: 15,
+                                          ),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Text(formmodel.location.toString(),
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              )),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 )
                               ],

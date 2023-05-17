@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:minor/screens/pages/chats_home.dart';
 import 'package:minor/screens/pages/home_screen.dart';
+import 'package:minor/screens/pages/user_detail_screen.dart';
 import 'package:minor/views/widgets/custom_appBar.dart';
 
 import '../../const/color_const.dart';
@@ -21,30 +22,38 @@ class MyAds extends StatefulWidget {
 class _MyAdsState extends State<MyAds> {
   int _selectedPageIndex = 3;
   void _selectPage(int index) {
-    if(index==0){
-  Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen(category: "NULL",);
-                          },
-                        ),
-                      );
-    }else if(index==1){
+    if (index == 0) {
+      Navigator.pop(context);
       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return ChatHome(user: widget.user);
-                            },
-                          ),
-                        );
-
-    }else if(index==4){
-
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomeScreen(
+              category: "NULL",
+            );
+          },
+        ),
+      );
+    } else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return ChatHome(user: widget.user);
+          },
+        ),
+      );
+    } else if (index == 4) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return UserDetails();
+          },
+        ),
+      );
     }
-  
+
     // setState(() {
     //   _selectedPageIndex = index;
     // });
@@ -70,58 +79,61 @@ class _MyAdsState extends State<MyAds> {
                     return ListView.builder(
                       itemCount: datasnapshot.docs.length,
                       itemBuilder: (context, index) {
-                   FormModel formmodel = FormModel.fromMap(
-                              datasnapshot.docs[index].data()
-                                  as Map<String, dynamic>);
-                          //print(index.toString());
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Card(
-                              shape:RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(20),) ,
-                              color: Color.fromARGB(255, 229, 238, 238),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 150,
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(formmodel
-                                                .profilepic
-                                                .toString()))),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        formmodel.productName.toString(),
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Text(
-                                        "₹" +
-                                            formmodel.price.toString() +
-                                            " " +
-                                            formmodel.duration.toString(),
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Text("📍" + formmodel.location.toString(),
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ),
+                        FormModel formmodel = FormModel.fromMap(
+                            datasnapshot.docs[index].data()
+                                as Map<String, dynamic>);
+                        //print(index.toString());
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(20),
                             ),
-                          );
+                            color: Color.fromARGB(255, 229, 238, 238),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 150,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(formmodel
+                                              .profilepic
+                                              .toString()))),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      formmodel.productName.toString(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      "₹" +
+                                          formmodel.price.toString() +
+                                          " " +
+                                          formmodel.duration.toString(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text("📍" + formmodel.location.toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
                       },
                     );
                   } else {
@@ -135,7 +147,7 @@ class _MyAdsState extends State<MyAds> {
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 } else {
-                 // print(1);
+                  // print(1);
                   return const Text("No ADS");
                 }
               } else {
@@ -183,7 +195,7 @@ class _MyAdsState extends State<MyAds> {
                   icon: Icon(null),
                   label: 'Rent Now',
                 ),
-                 BottomNavigationBarItem(
+                BottomNavigationBarItem(
                   icon: Icon(
                     Icons.favorite_border,
                   ),

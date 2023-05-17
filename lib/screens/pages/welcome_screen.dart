@@ -32,10 +32,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Let's get started",
+                  "A perfect solution for both renters and buyers",
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -56,11 +57,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-
-                                  builder: (context) => HomeScreen(category: "NULL"),
-
-                                  
-
+                                  builder: (context) =>
+                                      HomeScreen(category: "NULL"),
                                 ),
                               ),
                             );
