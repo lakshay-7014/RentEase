@@ -57,8 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 context,
                                 MaterialPageRoute(
 
-                                  builder: (context) =>
-                                      HomeScreen(category: "NULL"),
+                                  builder: (context) => HomeScreen(category: "NULL"),
 
                                   
 
