@@ -155,11 +155,7 @@ Stream<QuerySnapshot> fetchStream() {
                     fontSize: 30,
                   ),
                 ),
-                //SizedBox(height: AppSizes.height10 * 1.5),
-                // Image.asset(
-                //   ImageConst.appLogo,
-                //   height: AppSizes.height10 * 2.7,
-                // ),
+             
               ],
             ),
           ],
