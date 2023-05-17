@@ -12,7 +12,6 @@ import 'package:minor/screens/pages/my_ads.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
 // import 'package:provider/provider.dart';
 // import '../../auth/auth_provider.dart';
-
 import '../../utils/app_sizes.dart';
 import '../../views/widgets/category_filter.dart';
 import 'category_screen.dart';
@@ -24,7 +23,6 @@ class HomeScreen extends StatefulWidget {
   final String category;
 
   const HomeScreen({super.key, required this.category});
-  
 
   static void mediaQueryHeightWidth(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -42,20 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedPageIndex = 0;
   User? user = FirebaseAuth.instance.currentUser;
   void _selectPage(int index) {
-
-    if(index==0){
+    if (index == 0) {
       Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen(category: "NULL",);
-                          },
-                        ),
-                      );
-
-    }
-   else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomeScreen(
+              category: "NULL",
+            );
+          },
+        ),
+      );
+    } else if (index == 1) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -97,17 +94,21 @@ class _HomeScreenState extends State<HomeScreen> {
 //     return FirebaseFirestore.instance.collection("product").where("category",isEqualTo: s).snapshots();
 //   }
 // }
-Stream<QuerySnapshot> fetchStream() {
-  Stream<QuerySnapshot> stream;
+    Stream<QuerySnapshot> fetchStream() {
+      Stream<QuerySnapshot> stream;
 
-  if (widget.category=="NULL") {
-    stream = FirebaseFirestore.instance.collection("product").snapshots();
-  } else {
-    stream = FirebaseFirestore.instance.collection("product").where("category",isEqualTo: widget.category).snapshots();
-  }
+      if (widget.category == "NULL") {
+        stream = FirebaseFirestore.instance.collection("product").snapshots();
+      } else {
+        stream = FirebaseFirestore.instance
+            .collection("product")
+            .where("category", isEqualTo: widget.category)
+            .snapshots();
+      }
 
-  return stream;
-}
+      return stream;
+    }
+
     return Scaffold(
       appBar: AppBar(
         // actions: [
@@ -155,7 +156,6 @@ Stream<QuerySnapshot> fetchStream() {
                     fontSize: 30,
                   ),
                 ),
-             
               ],
             ),
           ],
@@ -203,7 +203,6 @@ Stream<QuerySnapshot> fetchStream() {
                 ),
                 TextButton(
                   onPressed: () {
-                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -228,9 +227,8 @@ Stream<QuerySnapshot> fetchStream() {
           // TODO:
 
           StreamBuilder(
-            
-            stream:fetchStream(),
-                //FirebaseFirestore.instance.collection("product").snapshots(),
+            stream: fetchStream(),
+            //FirebaseFirestore.instance.collection("product").snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
@@ -247,8 +245,10 @@ Stream<QuerySnapshot> fetchStream() {
                                 as Map<String, dynamic>);
                         //print(index.toString());
                         return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                           child: Card(
+                            elevation: 4,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadiusDirectional.circular(20),
@@ -271,15 +271,17 @@ Stream<QuerySnapshot> fetchStream() {
                                   width: 20,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       formmodel.productName.toString(),
                                       style: TextStyle(
-                                        color: Colors.black,
-                                      ),
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      "₹" +
+                                      "₹ " +
                                           formmodel.price.toString() +
                                           " " +
                                           formmodel.duration.toString(),
@@ -317,12 +319,13 @@ Stream<QuerySnapshot> fetchStream() {
               } else {
                 return Center(
                   child: Container(
-                      height: 50,
-                      width: 50,
-                      child: CircularProgressIndicator.adaptive(
-                        value: 25,
-                         strokeWidth: 2,
-                      ),),
+                    height: 50,
+                    width: 50,
+                    child: CircularProgressIndicator.adaptive(
+                      value: 25,
+                      strokeWidth: 2,
+                    ),
+                  ),
                 );
               }
             },
