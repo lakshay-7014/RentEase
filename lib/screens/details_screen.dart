@@ -50,7 +50,7 @@ class _DetailsState extends State<Details> {
     try {
       CroppedFile? cropfile = await ImageCropper().cropImage(
         sourcePath: file!.path,
-        compressQuality: 3,
+        compressQuality: 50,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       );
 
@@ -73,7 +73,7 @@ class _DetailsState extends State<Details> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Upload Profile Image"),
+            title: const Text("Upload Product Image"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
                 onTap: () {
@@ -111,7 +111,7 @@ class _DetailsState extends State<Details> {
           context, "Data Incomplete", "All fields are not Completed");
     } else if (imageFile == null) {
       UiHelper.showAlertDialog(
-          context, "Upload Image !!", "please select the image");
+          context, "Upload Product Image !!", "please select the image");
     } else {
       setdata(
           name: name,
@@ -156,7 +156,9 @@ class _DetailsState extends State<Details> {
         Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return HomeScreen( category: "NULL",);
+          return HomeScreen(
+            category: "NULL",
+          );
         }));
       });
     } catch (ex) {
@@ -229,6 +231,7 @@ class _DetailsState extends State<Details> {
               height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: imageFile != null
@@ -272,13 +275,18 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        cursorColor: Color(0xFF19736C),
         controller: locationcontroller,
         decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderSide: BorderSide(
               color: color,
             )),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
                 color: color,
                 width: 2,
@@ -300,13 +308,18 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        cursorColor: Color(0xFF19736C),
         controller: namecontroller,
         decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderSide: BorderSide(
               color: color,
             )),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
                 color: color,
                 width: 2,
@@ -328,17 +341,22 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        cursorColor: Color(0xFF19736C),
         controller: durationcontroller,
         decoration: InputDecoration(
           border: const OutlineInputBorder(
               borderSide: BorderSide(
             color: Colors.black,
           )),
-          focusedBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-            color: ColorConst.primaryColor,
-            width: 2,
-          )),
+                color: ColorConst.primaryColor,
+                width: 2,
+              )),
           prefixIcon: Icon(
             Icons.access_time,
             color: color,
@@ -355,17 +373,22 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        cursorColor: Color(0xFF19736C),
         controller: pricecontroller,
         decoration: InputDecoration(
-          border: const OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(
             color: Colors.black,
           )),
-          focusedBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-            color: ColorConst.primaryColor,
-            width: 2,
-          )),
+                color: ColorConst.primaryColor,
+                width: 2,
+              )),
           prefixIcon: Icon(
             Icons.currency_rupee_outlined,
             color: color,
@@ -382,6 +405,7 @@ class _DetailsState extends State<Details> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
+        cursorColor: Color(0xFF19736C),
         controller: descriptioncontroller,
         maxLines: 5,
         style: const TextStyle(
@@ -393,11 +417,15 @@ class _DetailsState extends State<Details> {
               borderSide: BorderSide(
             color: Colors.teal,
           )),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-            color: color,
-            width: 2,
-          )),
+                color: color,
+                width: 2,
+              )),
           hintText: "Description about your product",
         ),
       ),
