@@ -60,14 +60,17 @@ Widget filter(BuildContext context) {
           width: 40,
         ),
         GestureDetector(
-           onTap: () {
+          onTap: () {
             navigateto(context: context, cat: "Mobiles");
           },
           child: Container(
             width: 52,
             height: 50,
             child: Column(
-              children: [Image.asset('assets/images/img3.png'), Text("Mobiles")],
+              children: [
+                Image.asset('assets/images/img3.png'),
+                Text("Mobiles")
+              ],
             ),
           ),
         ),
@@ -75,14 +78,14 @@ Widget filter(BuildContext context) {
           width: 40,
         ),
         GestureDetector(
-           onTap: () {
-            navigateto(context: context, cat: "Jobs");
+          onTap: () {
+            navigateto(context: context, cat: "Books");
           },
           child: Container(
             width: 50,
             height: 50,
             child: Column(
-              children: [Image.asset('assets/images/img4.png'), Text("Jobs")],
+              children: [Image.asset('assets/images/img9.png'), Text("Books")],
             ),
           ),
         ),
@@ -90,7 +93,7 @@ Widget filter(BuildContext context) {
           width: 40,
         ),
         GestureDetector(
-           onTap: () {
+          onTap: () {
             navigateto(context: context, cat: "Bikes");
           },
           child: Container(
@@ -105,14 +108,17 @@ Widget filter(BuildContext context) {
           width: 40,
         ),
         GestureDetector(
-           onTap: () {
-            navigateto(context: context, cat: "Spoets");
+          onTap: () {
+            navigateto(context: context, cat: "Sports");
           },
           child: Container(
             width: 50,
             height: 50,
             child: Column(
-              children: [Image.asset('assets/images/img10.png'), Text("Sports")],
+              children: [
+                Image.asset('assets/images/img10.png'),
+                Text("Sports")
+              ],
             ),
           ),
         ),
