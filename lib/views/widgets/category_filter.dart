@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
-Widget filter() {
+
+import '../../screens/pages/home_screen.dart';
+
+void navigateto({required BuildContext context, required String cat}) {
+  Navigator.pop(context);
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) {
+        return HomeScreen(
+          category: cat,
+        );
+      },
+    ),
+  );
+}
+
+Widget filter(BuildContext context) {
   return Container(
     width: 90,
     height: 90,
@@ -7,69 +24,96 @@ Widget filter() {
       // shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       children: [
-        Container(
-          width: 50,
-          height: 50,
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/images/img1.png',
-              ),
-              Text("Cars")
-            ],
+        GestureDetector(
+          onTap: () {
+            navigateto(context: context, cat: "Cars");
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/img1.png',
+                ),
+                Text("Cars")
+              ],
+            ),
           ),
         ),
         SizedBox(
           width: 40,
         ),
-        Container(
-          width: 50,
-          height: 50,
-          child: Column(
-            children: [Image.asset('assets/images/img2.png'), Text("Home")],
+        GestureDetector(
+          onTap: () {
+            navigateto(context: context, cat: "Home");
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            child: Column(
+              children: [Image.asset('assets/images/img2.png'), Text("Home")],
+            ),
           ),
         ),
         SizedBox(
           width: 40,
         ),
-        Container(
-          width: 52,
-          height: 50,
-          child: Column(
-            children: [Image.asset('assets/images/img3.png'), Text("Mobiles")],
+        GestureDetector(
+           onTap: () {
+            navigateto(context: context, cat: "Mobiles");
+          },
+          child: Container(
+            width: 52,
+            height: 50,
+            child: Column(
+              children: [Image.asset('assets/images/img3.png'), Text("Mobiles")],
+            ),
           ),
         ),
         SizedBox(
           width: 40,
         ),
-        Container(
-          width: 50,
-          height: 50,
-          child: Column(
-            children: [Image.asset('assets/images/img4.png'), Text("Jobs")],
+        GestureDetector(
+           onTap: () {
+            navigateto(context: context, cat: "Jobs");
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            child: Column(
+              children: [Image.asset('assets/images/img4.png'), Text("Jobs")],
+            ),
           ),
         ),
         SizedBox(
           width: 40,
         ),
-        Container(
-          width: 50,
-          height: 50,
-          child: Column(
-            children: [Image.asset('assets/images/img5.png'), Text("Bikes")],
+        GestureDetector(
+           onTap: () {
+            navigateto(context: context, cat: "Bikes");
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            child: Column(
+              children: [Image.asset('assets/images/img5.png'), Text("Bikes")],
+            ),
           ),
         ),
         SizedBox(
           width: 40,
         ),
-        Container(
-          width: 50,
-          height: 50,
-          child: Column(
-            children: [
-              Image.asset('assets/images/img6.png'),
-              Text("Electronics")
-            ],
+        GestureDetector(
+           onTap: () {
+            navigateto(context: context, cat: "Spoets");
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            child: Column(
+              children: [Image.asset('assets/images/img10.png'), Text("Sports")],
+            ),
           ),
         ),
       ],

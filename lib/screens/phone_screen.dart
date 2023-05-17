@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_provider.dart';
+import '../views/dialogs/ui_help.dart';
 
 class PhoneScreen extends StatefulWidget {
   const PhoneScreen({Key? key}) : super(key: key);
@@ -78,7 +79,8 @@ class _PhoneScreenState extends State<PhoneScreen> {
                     countryController.text = value;
                   });
                 },
-                decoration: InputDecoration(counterText: "",
+                decoration: InputDecoration(
+                  counterText: "",
                   hintText: " Enter phone number",
                   hintStyle: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -121,7 +123,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                       ),
                     ),
                   ),
-                  suffixIcon: countryController.text.length ==10
+                  suffixIcon: countryController.text.length == 10
                       ? Container(
                           height: 30,
                           width: 30,
@@ -147,10 +149,15 @@ class _PhoneScreenState extends State<PhoneScreen> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: ColorConst.primaryColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () => sendPhoneNumber(),
+                      primary: ColorConst.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                     UiHelper.showloadingDialog(context, "Loading");
+                      sendPhoneNumber();
+                    },
                     child: Text("Send the code")),
               ),
             ],
@@ -166,3 +173,4 @@ class _PhoneScreenState extends State<PhoneScreen> {
     ap.signInWithPhone(context, "+${selectedCountry.phoneCode}$phoneNumber");
   }
 }
+//UiHelper.showloadingDialog(context, "Loading");

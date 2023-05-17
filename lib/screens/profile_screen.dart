@@ -210,7 +210,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       (value) => Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  HomeScreen(),
+                            builder: (context) =>  HomeScreen(category: "NULL"),
                           ),
                           (route) => false),
                     ),

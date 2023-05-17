@@ -21,10 +21,10 @@ import 'chats_home.dart';
 class HomeScreen extends StatefulWidget {
   static double height10 = 0.0;
   static double width10 = 0.0;
+  final String category;
 
-  const HomeScreen({
-    super.key,
-  });
+  const HomeScreen({super.key, required this.category});
+  
 
   static void mediaQueryHeightWidth(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -42,9 +42,42 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedPageIndex = 0;
   User? user = FirebaseAuth.instance.currentUser;
   void _selectPage(int index) {
-    setState(() {
-      _selectedPageIndex = index;
-    });
+
+    if(index==0){
+      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen(category: "NULL",);
+                          },
+                        ),
+                      );
+
+    }
+   else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return ChatHome(user: user!);
+          },
+        ),
+      );
+    } else if (index == 3) {
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return MyAds(user: user!);
+          },
+        ),
+      );
+    } else if (index == 4) {}
+    // setState(() {
+    //   _selectedPageIndex = index;
+    // });
   }
 
   final List<String> imgList = [
@@ -57,7 +90,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // final ap = Provider.of<AuthProvider>(context, listen: false);
     double displayWidth = MediaQuery.of(context).size.width;
+// Stream<QuerySnapshot> _getStream(String s) {
+//   if () {
+//     return FirebaseFirestore.instance.collection("product").snapshots();
+//   } else {
+//     return FirebaseFirestore.instance.collection("product").where("category",isEqualTo: s).snapshots();
+//   }
+// }
+Stream<QuerySnapshot> fetchStream() {
+  Stream<QuerySnapshot> stream;
 
+  if (widget.category=="NULL") {
+    stream = FirebaseFirestore.instance.collection("product").snapshots();
+  } else {
+    stream = FirebaseFirestore.instance.collection("product").where("category",isEqualTo: widget.category).snapshots();
+  }
+
+  return stream;
+}
     return Scaffold(
       appBar: AppBar(
         // actions: [
@@ -157,6 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 TextButton(
                   onPressed: () {
+                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -176,13 +227,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          filter(),
+          filter(context),
           //expend error
           // TODO:
 
           StreamBuilder(
-            stream:
-                FirebaseFirestore.instance.collection("product").snapshots(),
+            
+            stream:fetchStream(),
+                //FirebaseFirestore.instance.collection("product").snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
@@ -199,8 +251,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 as Map<String, dynamic>);
                         //print(index.toString());
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(20),
+                            ),
                             color: Color.fromARGB(255, 229, 238, 238),
                             child: Row(
                               children: [
@@ -249,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   } else {
                     return const Center(
-                      child: Text("NO Add's Uploaded",
+                      child: Text("No Product available",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w300)),
                     );
@@ -263,12 +319,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
               } else {
-                return const SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: CircularProgressIndicator.adaptive(
-                      value: 40,
-                    ));
+                return Center(
+                  child: Container(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator.adaptive(
+                        value: 25,
+                         strokeWidth: 2,
+                      ),),
+                );
               }
             },
           )
@@ -306,19 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: GestureDetector(
-                    onTap: () {
-                     
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ChatHome(user: user!);
-                          },
-                        ),
-                      );
-                    },
-                    child: Icon(Icons.chat_bubble)),
+                  icon: Icon(Icons.chat_bubble),
                   label: 'Chats',
                 ),
                 BottomNavigationBarItem(
@@ -327,21 +374,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'Rent Now',
                 ),
                 BottomNavigationBarItem(
-                  icon: GestureDetector(
-                    onTap: () {
-                       Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MyAds(user: user!);
-                          },
-                        ),
-                      );
-                    },
-                    child: Icon(
-                      Icons.favorite_border,
-                    ),
+                  icon: Icon(
+                    Icons.favorite_border,
                   ),
                   label: 'My Ads',
                 ),

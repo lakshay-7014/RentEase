@@ -50,7 +50,7 @@ class _DetailsState extends State<Details> {
     try {
       CroppedFile? cropfile = await ImageCropper().cropImage(
         sourcePath: file!.path,
-        //compressQuality: 3,
+        compressQuality: 3,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       );
 
@@ -64,7 +64,7 @@ class _DetailsState extends State<Details> {
       }
     } catch (e) {
       //print(e.toString());
-      UiHelper.showAlertDialog(context, "Error!te", e.toString());
+      UiHelper.showAlertDialog(context, "Error", e.toString());
     }
   }
 
@@ -156,7 +156,7 @@ class _DetailsState extends State<Details> {
         Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return HomeScreen();
+          return HomeScreen( category: "NULL",);
         }));
       });
     } catch (ex) {
@@ -230,10 +230,10 @@ class _DetailsState extends State<Details> {
               width: double.infinity,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                       image: imageFile != null
                           ? FileImage(imageFile!)
-                          : AssetImage('assets/images/img12.png')
+                          : AssetImage('assets/images/default_image1.png')
                               as ImageProvider)),
             ),
           ),
