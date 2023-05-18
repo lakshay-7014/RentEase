@@ -87,13 +87,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-    #  - family: NunitoSans
-    #    fonts:
-    #      - asset: assets/fonts/NunitoSans-Bold.ttf
-    #      - asset: assets/fonts/NunitoSans-ExtraBold.ttf
-    #      - asset: assets/fonts/NunitoSans-Regular.ttf
-    #      - asset: assets/fonts/NunitoSans-SemiBold.ttf
+  fonts:
+     - family: NunitoSans
+       fonts:
+         - asset: assets/fonts/NunitoSans-Bold.ttf
+         - asset: assets/fonts/NunitoSans-ExtraBold.ttf
+         - asset: assets/fonts/NunitoSans-Regular.ttf
+         - asset: assets/fonts/NunitoSans-SemiBold.ttf
+
 
   #
   # For details regarding fonts from package dependencies,

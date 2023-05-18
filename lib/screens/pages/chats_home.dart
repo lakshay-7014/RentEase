@@ -6,7 +6,6 @@ class ChatHome extends StatefulWidget {
   final User user;
 
   const ChatHome({super.key, required this.user});
-  
 
   @override
   State<ChatHome> createState() => _ChatHomeState();
@@ -17,7 +16,7 @@ class _ChatHomeState extends State<ChatHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar(name: "CHATS"),
-      body: Text("NO CHATS"),
+      body: Center(child: Text("NO CHATS")),
     );
   }
 }

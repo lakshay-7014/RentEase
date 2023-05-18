@@ -86,6 +86,7 @@ class _MyAdsState extends State<MyAds> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Card(
+                            elevation: 4,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadiusDirectional.circular(20),
@@ -97,37 +98,64 @@ class _MyAdsState extends State<MyAds> {
                                   height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(formmodel
-                                              .profilepic
-                                              .toString()))),
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(
+                                        formmodel.profilepic.toString(),
+                                      ),
+                                      // image: AssetImage(
+                                      //     "assets/images/img11.png"),
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 20,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      formmodel.productName.toString(),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      "₹" +
-                                          formmodel.price.toString() +
-                                          " " +
-                                          formmodel.duration.toString(),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text("📍" + formmodel.location.toString(),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        formmodel.productName.toString(),
                                         style: TextStyle(
-                                          color: Colors.black,
-                                        ))
+                                            color: Colors.black,
+                                            fontSize: 23,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "₹ " +
+                                            formmodel.price.toString() +
+                                            " " +
+                                            formmodel.duration.toString(),
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.location_on,
+                                            size: 15,
+                                          ),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Text(formmodel.location.toString(),
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              )),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 )
                               ],

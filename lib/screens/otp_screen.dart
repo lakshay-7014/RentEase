@@ -18,12 +18,12 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   String? otpCode;
- 
+
   @override
   Widget build(BuildContext context) {
     final isLoading =
         Provider.of<AuthProvider>(context, listen: true).isLoading;
-       
+
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -153,7 +153,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                 (value) => Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => HomeScreen(category: "NULL"),
+                                      builder: (context) =>
+                                          HomeScreen(category: "NULL"),
                                     ),
                                     (route) => false),
                               ),

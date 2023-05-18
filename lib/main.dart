@@ -19,7 +19,6 @@ void main() async {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
   runApp(const MyApp());
 }
 
@@ -39,6 +38,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: StringConst.appTitle,
         navigatorKey: navigatorKey,
+        theme: ThemeData(fontFamily: "NunitoSans"),
         home: WelcomeScreen(),
       ),
     );
