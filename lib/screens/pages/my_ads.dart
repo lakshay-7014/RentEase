@@ -151,7 +151,8 @@ class _MyAdsState extends State<MyAds> {
                   return const Text("No ADS");
                 }
               } else {
-                return const CircularProgressIndicator.adaptive();
+                return Center(
+                    child: const CircularProgressIndicator.adaptive());
               }
             }),
       ),

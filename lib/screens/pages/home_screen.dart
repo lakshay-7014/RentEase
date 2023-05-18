@@ -232,7 +232,6 @@ class _HomeScreenState extends State<HomeScreen> {
           filter(context),
           //expend error
           // TODO:
-
           StreamBuilder(
             stream: fetchStream(),
             //FirebaseFirestore.instance.collection("product").snapshots(),
@@ -354,6 +353,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 50,
                     width: 50,
                     child: CircularProgressIndicator.adaptive(
+                      //  backgroundColor: Colors.red,
+                      valueColor:
+                          new AlwaysStoppedAnimation<Color>(Colors.green),
                       value: 25,
                       strokeWidth: 2,
                     ),
