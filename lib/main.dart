@@ -8,9 +8,10 @@ import 'package:minor/screens/pages/home_screen.dart';
 import 'package:minor/screens/pages/product_details.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import 'const/string_const.dart';
 import 'firebase_options.dart';
-
+var uuid = const Uuid();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
