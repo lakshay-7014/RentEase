@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:minor/screens/pages/welcome_screen.dart';
+import 'package:provider/provider.dart';
 
+import '../../auth/auth_provider.dart';
 import '../../const/color_const.dart';
 
 class Account_Screen extends StatefulWidget {
@@ -63,11 +66,11 @@ class _Account_ScreenState extends State<Account_Screen> {
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: Colors.white,
-                //  width:1, //8
+                  //  width:1, //8
                 ),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/img1.png"),
+                  image: AssetImage("assets/images/default_image1.png"),
                 ),
               ),
             ),
@@ -90,7 +93,6 @@ class _Account_ScreenState extends State<Account_Screen> {
                 color: Colors.black,
               ),
             ),
-
             SizedBox(
               height: 40,
             ),
@@ -114,7 +116,9 @@ class _Account_ScreenState extends State<Account_Screen> {
                       color: Colors.black87,
                     ),
                   ),
-                  SizedBox(height: 23,),
+                  SizedBox(
+                    height: 23,
+                  ),
                   Text(
                     "Address",
                     style: TextStyle(
@@ -134,20 +138,32 @@ class _Account_ScreenState extends State<Account_Screen> {
                 ],
               ),
             ),
-            SizedBox(height: 90,),
-            submitfield(),
+            SizedBox(
+              height: 90,
+            ),
+            submitfield(context),
           ],
         ),
       ),
     );
   }
-  Widget submitfield() {
+
+  Widget submitfield(BuildContext context) {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
     return Center(
       child: SizedBox(
         height: 50,
         width: 200,
         child: ElevatedButton(
           onPressed: () {
+            ap.userSignOut().then(
+                  (value) => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WelcomeScreen(),
+                    ),
+                  ),
+                );
           },
           child: Text(
             "Log-out",

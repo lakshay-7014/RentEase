@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:minor/screens/pages/account_screen.dart';
 import 'package:minor/screens/pages/chats_home.dart';
 import 'package:minor/screens/pages/home_screen.dart';
-import 'package:minor/screens/pages/user_detail_screen.dart';
 import 'package:minor/views/widgets/custom_appBar.dart';
 
 import '../../const/color_const.dart';
@@ -48,7 +48,7 @@ class _MyAdsState extends State<MyAds> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return UserDetails();
+            return Account_Screen();
           },
         ),
       );
@@ -152,7 +152,11 @@ class _MyAdsState extends State<MyAds> {
                 }
               } else {
                 return Center(
-                    child: const CircularProgressIndicator.adaptive());
+                    child: CircularProgressIndicator.adaptive(
+                  valueColor: new AlwaysStoppedAnimation<Color>(
+                    ColorConst.primaryColor,
+                  ),
+                ));
               }
             }),
       ),
