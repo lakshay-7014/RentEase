@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:minor/auth/auth_provider.dart';
+import 'package:minor/screens/pages/account_screen.dart';
 import 'package:minor/screens/pages/home_screen.dart';
 import 'package:minor/screens/pages/product_details.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
