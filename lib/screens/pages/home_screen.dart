@@ -9,6 +9,7 @@ import 'package:minor/const/color_const.dart';
 import 'package:minor/models/form_model.dart';
 import 'package:minor/screens/pages/category_list.dart';
 import 'package:minor/screens/pages/my_ads.dart';
+import 'package:minor/screens/pages/product_details.dart';
 import 'package:minor/screens/pages/user_detail_screen.dart';
 import '../../views/widgets/category_filter.dart';
 import 'category_screen.dart';
@@ -253,80 +254,93 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                          child: Card(
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadiusDirectional.circular(20),
-                            ),
-                            color: Color.fromARGB(255, 229, 238, 238),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 150,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                        formmodel.profilepic.toString(),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ProductDetails(firebaseuser: user!,formmodel: formmodel,);
+                                  },
+                                ),
+                              );
+                            },
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(20),
+                              ),
+                              color: Color.fromARGB(255, 229, 238, 238),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                          formmodel.profilepic.toString(),
+                                        ),
+                                        // image: AssetImage(
+                                        //     "assets/images/img11.png"),
                                       ),
-                                      // image: AssetImage(
-                                      //     "assets/images/img11.png"),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        formmodel.productName.toString(),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 23,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "₹ " +
-                                            formmodel.price.toString() +
-                                            " " +
-                                            formmodel.duration.toString(),
-                                        style: TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 16,
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          formmodel.productName.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.location_on,
-                                            size: 15,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "₹ " +
+                                              formmodel.price.toString() +
+                                              " " +
+                                              formmodel.duration.toString(),
+                                          style: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 16,
                                           ),
-                                          SizedBox(
-                                            width: 2,
-                                          ),
-                                          Text(formmodel.location.toString(),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                              )),
-                                        ],
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              size: 15,
+                                            ),
+                                            SizedBox(
+                                              width: 2,
+                                            ),
+                                            Text(formmodel.location.toString(),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                )),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         );

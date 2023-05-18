@@ -48,6 +48,7 @@ dependencies:
   shared_preferences: ^2.0.15
   image_picker: ^0.8.7+5
   image_cropper: ^4.0.1
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
   assets:
      - assets/fonts/
      - assets/images/
+     
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
