@@ -48,7 +48,7 @@ dependencies:
   shared_preferences: ^2.0.15
   image_picker: ^0.8.7+5
   image_cropper: ^4.0.1
-  flutter_launcher_icons: ^0.13.1
+  #flutter_launcher_icons: ^0.13.1
   uuid: ^3.0.6
 
 dev_dependencies:
