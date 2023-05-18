@@ -10,6 +10,7 @@ import '../../main.dart';
 import '../../models/chatroom.dart';
 import '../../models/form_model.dart';
 import '../../models/user_model.dart';
+import '../../views/dialogs/ui_help.dart';
 import 'chat_screen.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -150,10 +151,12 @@ class _ProductDetailsState extends State<ProductDetails> {
         width: 150,
         child: ElevatedButton(
           onPressed: () async {
+             UiHelper.showloadingDialog(context, "Loading");
             UserModel searchuser =
                 await GetUserModel.getusermodelById(widget.formmodel.uid!);
             ChatRoomModel? chatroom = await getChatroom(searchuser);
             if (chatroom != null) {
+              Navigator.pop(context);
               Navigator.pop(context);
               Navigator.push(
                 context,
