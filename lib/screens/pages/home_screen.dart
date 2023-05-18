@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:minor/models/form_model.dart';
+import 'package:minor/screens/pages/account_screen.dart';
 import 'package:minor/screens/pages/category_list.dart';
 import 'package:minor/screens/pages/my_ads.dart';
-import 'package:minor/screens/pages/user_detail_screen.dart';
 import '../../views/widgets/category_filter.dart';
 import 'category_screen.dart';
 import 'chats_home.dart';
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return UserDetails();
+            return Account_Screen();
           },
         ),
       );
@@ -352,12 +352,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     height: 50,
                     width: 50,
-                    child: CircularProgressIndicator.adaptive(
+                    child: CircularProgressIndicator(
                       //  backgroundColor: Colors.red,
-                      valueColor:
-                          new AlwaysStoppedAnimation<Color>(Colors.green),
-                      value: 25,
-                      strokeWidth: 2,
+                      valueColor: new AlwaysStoppedAnimation<Color>(
+                          ColorConst.primaryColor),
                     ),
                   ),
                 );
