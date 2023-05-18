@@ -50,7 +50,7 @@ class _DetailsState extends State<Details> {
     try {
       CroppedFile? cropfile = await ImageCropper().cropImage(
         sourcePath: file!.path,
-        compressQuality: 50,
+        compressQuality: 20,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       );
 
