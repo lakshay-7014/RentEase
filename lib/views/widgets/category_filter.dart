@@ -48,7 +48,7 @@ Widget filter(BuildContext context) {
           ),
           GestureDetector(
             onTap: () {
-              navigateto(context: context, cat: "Home");
+              navigateto(context: context, cat: "Properties");
             },
             child: Container(
               width: 50,

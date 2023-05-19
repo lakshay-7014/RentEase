@@ -211,14 +211,10 @@ class _AccountScreenState extends State<AccountScreen> {
         width: 200,
         child: ElevatedButton(
           onPressed: () {
-            ap.userSignOut().then(
-                  (value) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WelcomeScreen(),
-                    ),
-                  ),
-                );
+            ap.userSignOut().then((value) => Navigator.of(context)
+                .pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (c) => WelcomeScreen()),
+                    (route) => false));
           },
           child: Text(
             "Log-out",

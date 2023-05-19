@@ -69,6 +69,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
               ),
               TextFormField(
                 maxLength: 10,
+                cursorColor: ColorConst.primaryColor,
                 keyboardType: TextInputType.phone,
                 controller: countryController,
                 style: TextStyle(

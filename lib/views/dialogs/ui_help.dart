@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minor/const/color_const.dart';
 
 class UiHelper {
   static void showloadingDialog(BuildContext context, String title) {
@@ -8,7 +9,9 @@ class UiHelper {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircularProgressIndicator(),
+            const CircularProgressIndicator(
+              color: ColorConst.primaryColor,
+            ),
             const SizedBox(height: 20),
             Text(title),
           ],
@@ -44,6 +47,5 @@ class UiHelper {
         builder: (context) {
           return alertdialog;
         });
-        
   }
 }

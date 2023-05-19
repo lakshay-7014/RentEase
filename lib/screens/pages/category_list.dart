@@ -107,7 +107,7 @@ class CategoryList extends StatelessWidget {
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
-               navigateto(context: context, cat: "Home");
+              navigateto(context: context, cat: "Home");
             },
           ),
         ),
@@ -127,7 +127,7 @@ class CategoryList extends StatelessWidget {
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
-               navigateto(context: context, cat: "Mobiles");
+              navigateto(context: context, cat: "Mobiles");
             },
           ),
         ),
@@ -147,7 +147,7 @@ class CategoryList extends StatelessWidget {
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
-              navigateto(context: context, cat:"Jobs");
+              navigateto(context: context, cat: "Jobs");
             },
           ),
         ),
@@ -207,7 +207,6 @@ class CategoryList extends StatelessWidget {
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
-
               navigateto(context: context, cat: "Furnitures");
             },
           ),
@@ -228,7 +227,6 @@ class CategoryList extends StatelessWidget {
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
-
               navigateto(context: context, cat: "Fashion");
             },
           ),

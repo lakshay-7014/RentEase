@@ -8,6 +8,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_provider.dart';
 import '../utils/utils.dart';
+import '../views/dialogs/ui_help.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
@@ -120,6 +121,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
+                      UiHelper.showloadingDialog(context, "Loading");
                       if (otpCode != null) {
                         verifyOtp(context, otpCode!);
                       } else {
