@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:minor/screens/pages/chat_screen.dart';
 import 'package:minor/views/widgets/custom_appBar.dart';
 
+import '../../const/color_const.dart';
 import '../../controller/getmodelcontroller.dart';
 import '../../models/chatroom.dart';
 import '../../models/user_model.dart';
@@ -49,9 +50,13 @@ class _ChatHomeState extends State<ChatHome> {
                         if (userdata.connectionState == ConnectionState.done) {
                           UserModel targetuser = userdata.data as UserModel;
                           return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 4),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 4),
                             child: Container(
-                              color: Colors.grey[300],
+                              decoration: BoxDecoration(
+                                color: Color(0xFFCCE5E0),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                               margin: EdgeInsets.symmetric(vertical: 1),
                               child: ListTile(
                                 onTap: () {
@@ -71,7 +76,12 @@ class _ChatHomeState extends State<ChatHome> {
                                   backgroundImage:
                                       NetworkImage(targetuser.profilePic),
                                 ),
-                                title: Text(targetuser.name!),
+                                title: Text(
+                                  targetuser.name!,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 subtitle: Text(chatroomodel.lastmessage!),
                               ),
                             ),
@@ -97,7 +107,17 @@ class _ChatHomeState extends State<ChatHome> {
               return const Text("No Chats");
             }
           } else {
-            return const CircularProgressIndicator.adaptive();
+            return Center(
+              child: Container(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
+                  //  backgroundColor: Colors.red,
+                  valueColor: new AlwaysStoppedAnimation<Color>(
+                      ColorConst.primaryColor),
+                ),
+              ),
+            );
           }
         },
       ),

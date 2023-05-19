@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:minor/models/user_model.dart';
 import 'package:minor/views/widgets/custom_appBar.dart';
+import '../../const/color_const.dart';
 import '../../main.dart';
 import '../../models/chatroom.dart';
 import '../../models/messagemodel.dart';
@@ -24,7 +26,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   void sendmessage() {
     String message = messagecontroller.text;
-
     if (message != "") {
       MessageModel messagemodel = MessageModel(
           messageid: uuid.v1(),
@@ -51,7 +52,106 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbar(name: "chats"),
+      //  appBar: appbar(name: "chats"),
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: Color(0xFFCCE5E0),
+        systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
+          statusBarColor: Color(0xFFCCE5E0),
+          //statusBarColor: Colors.transparent,
+        ),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.black.withOpacity(0.6),
+            ),
+          ),
+        ),
+        title: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage(widget.targetuser.profilePic),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.targetuser.name.toString(),
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                true
+                    ? Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 1),
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 2,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 3),
+                          Text(
+                            "Active Now",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      )
+                    : Text(
+                        DateTime.now().toString(),
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.videocam, size: 20),
+            color: Color(0xFF177767),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.call, size: 20),
+            color: Color(0xFF177767),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.more_vert, size: 20),
+            color: Color(0xFF177767),
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: Container(
         child: Column(
           children: [
@@ -84,19 +184,42 @@ class _ChatScreenState extends State<ChatScreen> {
                                     ? MainAxisAlignment.end
                                     : MainAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 7, horizontal: 10),
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: currentmessage.sender ==
-                                                widget.firebaseuser.uid
-                                            ? Colors.teal
-                                            : Colors.grey),
-                                    child: Text(currentmessage.text.toString(),
-                                        style: const TextStyle(fontSize: 22)),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 7, horizontal: 10),
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                          borderRadius: currentmessage.sender ==
+                                                  widget.firebaseuser.uid
+                                              ? BorderRadius.only(
+                                                  topLeft: Radius.circular(12),
+                                                  bottomLeft:
+                                                      Radius.circular(12),
+                                                  bottomRight:
+                                                      Radius.circular(12))
+                                              : BorderRadius.only(
+                                                  topRight: Radius.circular(12),
+                                                  bottomLeft:
+                                                      Radius.circular(12),
+                                                  bottomRight:
+                                                      Radius.circular(12)),
+                                          color: currentmessage.sender ==
+                                                  widget.firebaseuser.uid
+                                              ? Color(0xFF66BEB8)
+                                              : Color(0xFFCCD0DC)),
+                                      child: Center(
+                                        child: Text(
+                                            currentmessage.text
+                                                .toString()
+                                                .trim(),
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            )),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               );
@@ -118,49 +241,78 @@ class _ChatScreenState extends State<ChatScreen> {
                         );
                       }
                     } else {
-                      return const SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: CircularProgressIndicator.adaptive(
-                            value: 40,
-                          ));
+                      return Center(
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          child: CircularProgressIndicator(
+                            //  backgroundColor: Colors.red,
+                            valueColor: new AlwaysStoppedAnimation<Color>(
+                                ColorConst.primaryColor),
+                          ),
+                        ),
+                      );
                     }
                   },
                 ),
               ),
             ),
-            Container(
-              color: Colors.grey[400],
-              height: 80,
-              child: Row(
-                children: [
-                  Flexible(
-                      child: Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
-                    child: TextField(
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
-                      maxLines: null,
-                      controller: messagecontroller,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  )),
-                  IconButton(
-                    onPressed: () {
-                      sendmessage();
-                      messagecontroller.clear();
-                    },
-                    icon: const Icon(
-                      Icons.send,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ],
+            TextField(
+              controller: messagecontroller,
+              cursorColor: Colors.black,
+              style: TextStyle(color: Colors.black),
+              obscureText: false,
+              decoration: InputDecoration(
+                fillColor: Colors.grey.shade300,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  borderSide: BorderSide.none,
+                ),
+                hintText: "enter the message",
+                hintStyle: TextStyle(color: Colors.black),
+                suffixIcon: IconButton(
+                  color: Colors.black,
+                  onPressed: () {
+                    sendmessage();
+                    messagecontroller.clear();
+                  },
+                  icon: Icon(Icons.send),
+                ),
               ),
-            )
+            ),
+            // Container(
+            //   color: Colors.grey[400],
+            //   height: 80,
+            //   child: Row(
+            //     children: [
+            //       Flexible(
+            //           child: Padding(
+            //         padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+            //         child: TextField(
+            //           style: const TextStyle(
+            //             fontSize: 20,
+            //           ),
+            //           maxLines: null,
+            //           controller: messagecontroller,
+            //           decoration: const InputDecoration(
+            //             border: InputBorder.none,
+            //           ),
+            //         ),
+            //       )),
+            //       IconButton(
+            //         onPressed: () {
+            //           sendmessage();
+            //           messagecontroller.clear();
+            //         },
+            //         icon: const Icon(
+            //           Icons.send,
+            //           color: Colors.blue,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
