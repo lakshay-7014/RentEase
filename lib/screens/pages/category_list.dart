@@ -55,7 +55,7 @@ class CategoryList extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "RENTEASE",
+                  "CATEGORY LIST",
                   style: TextStyle(
                     fontSize: 30,
                   ),
@@ -107,7 +107,7 @@ class CategoryList extends StatelessWidget {
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
-              navigateto(context: context, cat: "Home");
+              navigateto(context: context, cat: "Properties");
             },
           ),
         ),
