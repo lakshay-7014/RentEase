@@ -126,9 +126,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final List<String> imgList = [
+    'assets/images/img17.png',
     'assets/images/img12.png',
-    'assets/images/img12.png',
-    'assets/images/img12.png',
+    'assets/images/img15.png',
   ];
 
   @override

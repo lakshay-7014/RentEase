@@ -51,6 +51,7 @@ class CustomCardWidget1 extends StatelessWidget {
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
+                color: Color(0xFF078F85),
                 fontFamily: FontConst.nunitoSans,
                 fontWeight: FontWeight.bold,
                 fontSize: _getHeight(context) * 1.8,

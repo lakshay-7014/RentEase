@@ -10,7 +10,7 @@ import '../../utils/app_sizes.dart';
 import '../../views/widgets/custom_card_widgets/custom_card_widget_1.dart';
 
 class CategoryScreen extends StatefulWidget {
-   final User firebaseuser;
+  final User firebaseuser;
 
   const CategoryScreen({super.key, required this.firebaseuser});
 
@@ -21,7 +21,6 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -89,7 +88,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             return Details(
                               firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream1,
-                           
                             );
                           },
                         ),
@@ -113,7 +111,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream2,
                             );
                           },
@@ -138,7 +136,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream3,
                             );
                           },
@@ -163,9 +161,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream4,
-                            
                             );
                           },
                         ),
@@ -189,8 +186,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream5,
                             );
                           },
@@ -215,7 +211,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream6,
                             );
                           },
@@ -240,7 +236,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream7,
                             );
                           },
@@ -265,7 +261,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream8,
                             );
                           },
@@ -290,7 +286,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream9,
                             );
                           },
@@ -315,7 +311,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return Details(
-                               firebaseuser: widget.firebaseuser,
+                              firebaseuser: widget.firebaseuser,
                               category: StreamConst.stream10,
                             );
                           },

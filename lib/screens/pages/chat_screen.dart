@@ -56,9 +56,9 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFFCCE5E0),
+        backgroundColor: Color(0xFFC2EEE4),
         systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
-          statusBarColor: Color(0xFFCCE5E0),
+          statusBarColor: Color(0xFFC2EEE4),
           //statusBarColor: Colors.transparent,
         ),
         leading: Padding(
@@ -69,7 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
             },
             child: Icon(
               Icons.arrow_back,
-              color: Colors.black.withOpacity(0.6),
+              color: Colors.black,
             ),
           ),
         ),
@@ -95,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.6),
                       fontSize: 16,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w900),
                 ),
                 true
                     ? Row(
@@ -119,6 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 12,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -192,16 +193,19 @@ class _ChatScreenState extends State<ChatScreen> {
                                         margin: EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 15),
                                         decoration: BoxDecoration(
-                                            borderRadius: currentmessage.sender ==
+                                            borderRadius: currentmessage
+                                                        .sender ==
                                                     widget.firebaseuser.uid
                                                 ? BorderRadius.only(
-                                                    topLeft: Radius.circular(12),
+                                                    topLeft:
+                                                        Radius.circular(12),
                                                     bottomLeft:
                                                         Radius.circular(12),
                                                     bottomRight:
                                                         Radius.circular(12))
                                                 : BorderRadius.only(
-                                                    topRight: Radius.circular(12),
+                                                    topRight:
+                                                        Radius.circular(12),
                                                     bottomLeft:
                                                         Radius.circular(12),
                                                     bottomRight:
@@ -286,38 +290,6 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ),
-            // Container(
-            //   color: Colors.grey[400],
-            //   height: 80,
-            //   child: Row(
-            //     children: [
-            //       Flexible(
-            //           child: Padding(
-            //         padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
-            //         child: TextField(
-            //           style: const TextStyle(
-            //             fontSize: 20,
-            //           ),
-            //           maxLines: null,
-            //           controller: messagecontroller,
-            //           decoration: const InputDecoration(
-            //             border: InputBorder.none,
-            //           ),
-            //         ),
-            //       )),
-            //       IconButton(
-            //         onPressed: () {
-            //           sendmessage();
-            //           messagecontroller.clear();
-            //         },
-            //         icon: const Icon(
-            //           Icons.send,
-            //           color: Colors.blue,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

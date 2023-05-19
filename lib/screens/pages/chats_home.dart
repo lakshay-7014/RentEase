@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:minor/screens/pages/chat_screen.dart';
 import 'package:minor/views/widgets/custom_appBar.dart';
-
 import '../../const/color_const.dart';
 import '../../controller/getmodelcontroller.dart';
 import '../../models/chatroom.dart';
