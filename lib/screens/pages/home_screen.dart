@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 //import 'package:get/get_core/src/get_main.dart';
 import 'package:minor/const/color_const.dart';
 import 'package:minor/models/form_model.dart';
+import 'package:minor/models/user_model.dart';
 import 'package:minor/screens/pages/account_screen.dart';
 import 'package:minor/screens/pages/category_list.dart';
 import 'package:minor/screens/pages/my_ads.dart';
@@ -35,6 +36,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String? name = ' ';
+  String? email = ' ';
+  String? bio = ' ';
+  String? profilePic = "assets/images/default_image1.png";
+  String? phoneNumber = ' ';
+  String? aadhar = ' ';
+
+  Future<void> _getData() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        name = data['name'];
+        aadhar = data['aadhar'];
+        bio = data['bio'];
+        email = data['email'];
+        profilePic = data['profilePic'];
+        phoneNumber = data['phoneNumber'];
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getData();
+  }
+
   var currentIndex = 0;
   int _selectedPageIndex = 0;
   User? user = FirebaseAuth.instance.currentUser;
@@ -76,7 +109,13 @@ class _HomeScreenState extends State<HomeScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return Account_Screen();
+            return AccountScreen(
+                email: email,
+                profilePic: profilePic,
+                aadhar: aadhar,
+                phoneNumber: phoneNumber,
+                bio: bio,
+                name: name!);
           },
         ),
       );
@@ -261,7 +300,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return ProductDetails(firebaseuser: user!,formmodel: formmodel,);
+                                    return ProductDetails(
+                                      firebaseuser: user!,
+                                      formmodel: formmodel,
+                                    );
                                   },
                                 ),
                               );
@@ -315,9 +357,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               " " +
                                               formmodel.duration.toString(),
                                           style: TextStyle(
-                                            color: Colors.green,
-                                            fontSize: 16,
-                                          ),
+                                              color: Colors.green,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       Padding(
@@ -331,10 +373,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(
                                               width: 2,
                                             ),
-                                            Text(formmodel.location.toString(),
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                )),
+                                            Text(
+                                              formmodel.location.toString(),
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       )

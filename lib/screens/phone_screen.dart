@@ -69,6 +69,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
               ),
               TextFormField(
                 maxLength: 10,
+                keyboardType: TextInputType.phone,
                 controller: countryController,
                 style: TextStyle(
                   fontSize: 18,
@@ -155,7 +156,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                       ),
                     ),
                     onPressed: () {
-                     UiHelper.showloadingDialog(context, "Loading");
+                      UiHelper.showloadingDialog(context, "Loading");
                       sendPhoneNumber();
                     },
                     child: Text("Send the code")),
