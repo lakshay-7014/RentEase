@@ -54,8 +54,8 @@ class _ChatHomeState extends State<ChatHome> {
                                 vertical: 10, horizontal: 4),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFFCCE5E0),
-                                borderRadius: BorderRadius.circular(20),
+                                color: Color(0xFFE6EFED),
+                                borderRadius: BorderRadius.circular(18),
                               ),
                               margin: EdgeInsets.symmetric(vertical: 1),
                               child: ListTile(
