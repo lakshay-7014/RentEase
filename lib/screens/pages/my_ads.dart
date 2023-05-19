@@ -5,7 +5,6 @@ import 'package:minor/screens/pages/account_screen.dart';
 import 'package:minor/screens/pages/chats_home.dart';
 import 'package:minor/screens/pages/home_screen.dart';
 import 'package:minor/views/widgets/custom_appBar.dart';
-
 import '../../const/color_const.dart';
 import '../../models/form_model.dart';
 import 'category_screen.dart';
@@ -20,6 +19,31 @@ class MyAds extends StatefulWidget {
 }
 
 class _MyAdsState extends State<MyAds> {
+  String? name = ' ';
+  String? email = ' ';
+  String? bio = ' ';
+  String? profilePic = ' ';
+  String? phoneNumber = ' ';
+  String? aadhar = ' ';
+
+  Future _getData() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        name = data['name'];
+        aadhar = data['aadhar'];
+        bio = data['bio'];
+        email = data['email'];
+        profilePic = data['profilePic'];
+        phoneNumber = data['phoneNumber'];
+      });
+    }
+  }
+
   int _selectedPageIndex = 3;
   void _selectPage(int index) {
     if (index == 0) {
@@ -48,7 +72,13 @@ class _MyAdsState extends State<MyAds> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return Account_Screen();
+            return AccountScreen(
+                email: email,
+                profilePic: profilePic,
+                aadhar: aadhar,
+                phoneNumber: phoneNumber,
+                bio: bio,
+                name: name!);
           },
         ),
       );
@@ -57,6 +87,13 @@ class _MyAdsState extends State<MyAds> {
     // setState(() {
     //   _selectedPageIndex = index;
     // });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getData();
   }
 
   @override
@@ -134,6 +171,7 @@ class _MyAdsState extends State<MyAds> {
                                             formmodel.duration.toString(),
                                         style: TextStyle(
                                           color: Colors.green,
+                                          fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                         ),
                                       ),

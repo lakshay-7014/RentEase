@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:minor/views/widgets/custom_appBar.dart';
-
 import '../../const/color_const.dart';
 import '../../controller/getmodelcontroller.dart';
 import '../../main.dart';
@@ -16,7 +14,6 @@ import 'chat_screen.dart';
 class ProductDetails extends StatefulWidget {
   final User firebaseuser;
   final FormModel formmodel;
-
   const ProductDetails(
       {super.key, required this.firebaseuser, required this.formmodel});
 
@@ -94,50 +91,101 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             imageProfile(),
-            Container(
-              height: 600,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
               child: Container(
-                margin: EdgeInsets.all(20),
-                alignment: Alignment.topLeft,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    aboutTextField(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    priceTextField(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    durationfield(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Locationfield(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    chatbutton(),
-                  ],
+                // height: 600,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xFFE3ECEB),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Container(
+                  margin: EdgeInsets.all(20),
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.formmodel.productName.toString(),
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(" starting from"),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.currency_rupee,
+                            size: 18,
+                            color: Colors.green,
+                            weight: 8,
+                          ),
+                          Text(
+                            widget.formmodel.price.toString() +
+                                widget.formmodel.duration.toString(),
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      aboutTextField(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      // priceTextField(),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // durationfield(),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      Locationfield(),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 15,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            widget.formmodel.location.toString(),
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 35,
             ),
+            chatbutton(),
           ],
         ),
       ),
@@ -146,45 +194,48 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   Widget chatbutton() {
     return Center(
-      child: SizedBox(
-        height: 50,
-        width: 150,
-        child: ElevatedButton(
-          onPressed: () async {
-             UiHelper.showloadingDialog(context, "Loading");
-            UserModel searchuser =
-                await GetUserModel.getusermodelById(widget.formmodel.uid!);
-            ChatRoomModel? chatroom = await getChatroom(searchuser);
-            if (chatroom != null) {
-              Navigator.pop(context);
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ChatScreen(
-                      firebaseuser: widget.firebaseuser,
-                      chatroom: chatroom,
-                      targetuser: searchuser,
-                    );
-                  },
-                ),
-              );
-            }
-          },
-          child: Text(
-            "Chat",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 0),
+        child: SizedBox(
+          height: 50,
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () async {
+              UiHelper.showloadingDialog(context, "Loading");
+              UserModel searchuser =
+                  await GetUserModel.getusermodelById(widget.formmodel.uid!);
+              ChatRoomModel? chatroom = await getChatroom(searchuser);
+              if (chatroom != null) {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ChatScreen(
+                        firebaseuser: widget.firebaseuser,
+                        chatroom: chatroom,
+                        targetuser: searchuser,
+                      );
+                    },
+                  ),
+                );
+              }
+            },
+            child: Text(
+              "Chat Now",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              primary: ColorConst.primaryColor,
             ),
-            primary: ColorConst.primaryColor,
           ),
         ),
       ),
@@ -192,14 +243,18 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   Widget imageProfile() {
-    return Container(
-      height: 350,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/images/default_image1.png')
-                  as ImageProvider)),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 350,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(widget.formmodel.profilepic.toString())
+                    as ImageProvider)),
+      ),
     );
   }
 
@@ -209,9 +264,9 @@ class _ProductDetailsState extends State<ProductDetails> {
       style: TextStyle(
         color: Colors.black,
         fontWeight: FontWeight.bold,
-        fontSize: 22,
-        height: 1,
-        letterSpacing: 2,
+        fontSize: 20,
+        // height: 1,
+        // letterSpacing: 2,
       ),
     );
   }
@@ -265,22 +320,22 @@ class _ProductDetailsState extends State<ProductDetails> {
           //textWidthBasis: TextWidthBasis.longestLine,
           textAlign: TextAlign.left,
           style: TextStyle(
-            color: Colors.black,
+            //color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 22,
-            height: 1,
-            letterSpacing: 2,
+            fontSize: 20,
+            // height: 1,
+            // letterSpacing: 2,
           ),
         ),
         Text(
-          "The bike is fitted with sturdy 26-inch wheels, which provide stability and control on various surfaces. The tires have a moderate tread pattern, striking a balance between efficient road riding and light off-road capability. ",
+          widget.formmodel.description.toString(),
           textWidthBasis: TextWidthBasis.longestLine,
           style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
+            //color: Colors.black,
+            //fontWeight: FontWeight.bold,
+            fontSize: 15,
             height: 1,
-            letterSpacing: 2,
+            letterSpacing: 1,
           ),
         ),
       ],

@@ -1,20 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:minor/models/user_model.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../../auth/auth_provider.dart';
 import '../../const/color_const.dart';
 
-class Account_Screen extends StatefulWidget {
-  const Account_Screen({Key? key}) : super(key: key);
+class AccountScreen extends StatefulWidget {
+  String name;
+  String? email;
+  String? bio;
+  String? profilePic;
+  String? phoneNumber;
+  String? aadhar;
+  AccountScreen(
+      {super.key,
+      required this.email,
+      required this.profilePic,
+      required this.aadhar,
+      required this.phoneNumber,
+      required this.bio,
+      required this.name});
 
   @override
-  State<Account_Screen> createState() => _Account_ScreenState();
+  _AccountScreenState createState() => _AccountScreenState();
 }
 
-class _Account_ScreenState extends State<Account_Screen> {
+class _AccountScreenState extends State<AccountScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // _getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,77 +47,64 @@ class _Account_ScreenState extends State<Account_Screen> {
         backgroundColor: ColorConst.primaryColor,
         systemOverlayStyle: const SystemUiOverlayStyle().copyWith(
           statusBarColor: ColorConst.primaryColor,
-          //statusBarColor: Colors.transparent,
         ),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(30),
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              children: const [
-                Text(
-                  "PROFILE",
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-              ],
+        title: Column(
+          children: const [
+            Text(
+              "PROFILE",
+              style: TextStyle(
+                fontSize: 30,
+              ),
             ),
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 70,
-            ),
-            Container(
-              alignment: Alignment.topCenter,
-              margin: EdgeInsets.only(bottom: 10), //10
-              height: 250, //140
-              width: 250,
-              decoration: BoxDecoration(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 70),
+          Container(
+            // alignment: Alignment.topCenter,
+            margin: EdgeInsets.only(bottom: 10),
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: Colors.white,
-                  //  width:1, //8
                 ),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/default_image1.png"),
-                ),
-              ),
+                  image: NetworkImage(widget.profilePic.toString()),
+                )),
+          ),
+          SizedBox(height: 8),
+          Text(
+            widget.name,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 22,
+              color: Colors.black,
             ),
-            SizedBox(
-              height: 8,
+          ),
+          Text(
+            "___________________________\n",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.black,
             ),
-            Text(
-              "Akshay Gehlot",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22, // 22
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              "___________________________\n",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22, // 22
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Container(
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+            child: Container(
+              alignment: Alignment.centerLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -109,16 +117,14 @@ class _Account_ScreenState extends State<Account_Screen> {
                     ),
                   ),
                   Text(
-                    "gehlotakshay10@gmail.com",
+                    widget.email.toString(),
                     style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
                     ),
                   ),
-                  SizedBox(
-                    height: 23,
-                  ),
+                  SizedBox(height: 23),
                   Text(
                     "Address",
                     style: TextStyle(
@@ -128,27 +134,76 @@ class _Account_ScreenState extends State<Account_Screen> {
                     ),
                   ),
                   Text(
-                    "Jaipur, Rajasthan(pin-302022)",
+                    "Jaipur, Rajasthan",
                     style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 23),
+                  Text(
+                    "Bio",
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    widget.bio.toString(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 23),
+                  Text(
+                    "Mobile Number",
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    widget.phoneNumber.toString(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 23),
+                  Text(
+                    "Aaadhar Number",
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    widget.aadhar.toString(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 90,
-            ),
-            submitfield(context),
-          ],
-        ),
+          ),
+          SizedBox(height: 80),
+          submitField(context),
+        ],
       ),
     );
   }
 
-  Widget submitfield(BuildContext context) {
+  Widget submitField(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
     return Center(
       child: SizedBox(
@@ -169,6 +224,8 @@ class _Account_ScreenState extends State<Account_Screen> {
             "Log-out",
             style: TextStyle(
               color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
           ),
           style: ElevatedButton.styleFrom(

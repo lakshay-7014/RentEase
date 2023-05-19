@@ -11,18 +11,18 @@ class ChatScreen extends StatefulWidget {
   final User firebaseuser;
   final UserModel targetuser;
   final ChatRoomModel chatroom;
-
-  const ChatScreen({super.key, required this.firebaseuser, required this.targetuser, required this.chatroom});
-
-  
+  const ChatScreen(
+      {super.key,
+      required this.firebaseuser,
+      required this.targetuser,
+      required this.chatroom});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  
- void sendmessage() {
+  void sendmessage() {
     String message = messagecontroller.text;
 
     if (message != "") {
@@ -46,6 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
           .set(widget.chatroom.toMap());
     }
   }
+
   TextEditingController messagecontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -56,77 +57,76 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             Expanded(
               child: Container(
-                child: 
-                 StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection("chatrooms")
-                        .doc(widget.chatroom.chatroomid)
-                        .collection("messages")
-                        .orderBy('createdon', descending: true)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.active) {
-                        if (snapshot.hasData) {
-                          QuerySnapshot datasnapshot =
-                              snapshot.data as QuerySnapshot;
-                          if (datasnapshot.docs.length > 0) {
-                            return ListView.builder(
-                              reverse: true,
-                              itemCount: datasnapshot.docs.length,
-                              itemBuilder: (context, index) {
-                                MessageModel currentmessage =
-                                    MessageModel.fromMap(datasnapshot.docs[index]
-                                        .data() as Map<String, dynamic>);
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("chatrooms")
+                      .doc(widget.chatroom.chatroomid)
+                      .collection("messages")
+                      .orderBy('createdon', descending: true)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      if (snapshot.hasData) {
+                        QuerySnapshot datasnapshot =
+                            snapshot.data as QuerySnapshot;
+                        if (datasnapshot.docs.length > 0) {
+                          return ListView.builder(
+                            reverse: true,
+                            itemCount: datasnapshot.docs.length,
+                            itemBuilder: (context, index) {
+                              MessageModel currentmessage =
+                                  MessageModel.fromMap(datasnapshot.docs[index]
+                                      .data() as Map<String, dynamic>);
 
-                                return Row(
-                                  mainAxisAlignment: currentmessage.sender ==
-                                          widget.firebaseuser.uid
-                                      ? MainAxisAlignment.end
-                                      : MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 7, horizontal: 10),
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 10),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: currentmessage.sender ==
-                                                  widget.firebaseuser.uid
-                                              ? Colors.teal
-                                              : Colors.grey),
-                                      child: Text(currentmessage.text.toString(),
-                                          style: const TextStyle(fontSize: 22)),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          } else {
-                            return const Center(
-                              child: Text("Say Hiii to Your new Friend",
-                                  style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w300)),
-                            );
-                          }
-                        } else if (snapshot.hasError) {
-                          return const Center(
-                              child: Text("check your internet connection"));
+                              return Row(
+                                mainAxisAlignment: currentmessage.sender ==
+                                        widget.firebaseuser.uid
+                                    ? MainAxisAlignment.end
+                                    : MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 7, horizontal: 10),
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: currentmessage.sender ==
+                                                widget.firebaseuser.uid
+                                            ? Colors.teal
+                                            : Colors.grey),
+                                    child: Text(currentmessage.text.toString(),
+                                        style: const TextStyle(fontSize: 22)),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         } else {
                           return const Center(
-                            child: Text("Say Hiii to Your new Friend"),
+                            child: Text("Say Hiii to Your new Friend",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w300)),
                           );
                         }
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                            child: Text("check your internet connection"));
                       } else {
-                        return const SizedBox(
-                            height: 30,
-                            width: 30,
-                            child: CircularProgressIndicator.adaptive(
-                              value: 40,
-                            ));
+                        return const Center(
+                          child: Text("Say Hiii to Your new Friend"),
+                        );
                       }
-                    },
-                  ),
+                    } else {
+                      return const SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator.adaptive(
+                            value: 40,
+                          ));
+                    }
+                  },
+                ),
               ),
             ),
             Container(
@@ -149,14 +149,15 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   )),
                   IconButton(
-                      onPressed: () {
-                        sendmessage();
-                        messagecontroller.clear();
-                      },
-                      icon: const Icon(
-                        Icons.send,
-                        color: Colors.blue,
-                      ))
+                    onPressed: () {
+                      sendmessage();
+                      messagecontroller.clear();
+                    },
+                    icon: const Icon(
+                      Icons.send,
+                      color: Colors.blue,
+                    ),
+                  ),
                 ],
               ),
             )
