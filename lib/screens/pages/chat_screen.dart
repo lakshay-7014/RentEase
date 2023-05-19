@@ -184,40 +184,45 @@ class _ChatScreenState extends State<ChatScreen> {
                                     ? MainAxisAlignment.end
                                     : MainAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 7, horizontal: 10),
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 15),
-                                      decoration: BoxDecoration(
-                                          borderRadius: currentmessage.sender ==
-                                                  widget.firebaseuser.uid
-                                              ? BorderRadius.only(
-                                                  topLeft: Radius.circular(12),
-                                                  bottomLeft:
-                                                      Radius.circular(12),
-                                                  bottomRight:
-                                                      Radius.circular(12))
-                                              : BorderRadius.only(
-                                                  topRight: Radius.circular(12),
-                                                  bottomLeft:
-                                                      Radius.circular(12),
-                                                  bottomRight:
-                                                      Radius.circular(12)),
-                                          color: currentmessage.sender ==
-                                                  widget.firebaseuser.uid
-                                              ? Color(0xFF66BEB8)
-                                              : Color(0xFFCCD0DC)),
-                                      child: Center(
-                                        child: Text(
-                                            currentmessage.text
-                                                .toString()
-                                                .trim(),
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                            )),
+                                  Flexible(
+                                    child: IntrinsicWidth(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 7, horizontal: 10),
+                                        margin: EdgeInsets.symmetric(
+                                            vertical: 5, horizontal: 15),
+                                        decoration: BoxDecoration(
+                                            borderRadius: currentmessage.sender ==
+                                                    widget.firebaseuser.uid
+                                                ? BorderRadius.only(
+                                                    topLeft: Radius.circular(12),
+                                                    bottomLeft:
+                                                        Radius.circular(12),
+                                                    bottomRight:
+                                                        Radius.circular(12))
+                                                : BorderRadius.only(
+                                                    topRight: Radius.circular(12),
+                                                    bottomLeft:
+                                                        Radius.circular(12),
+                                                    bottomRight:
+                                                        Radius.circular(12)),
+                                            color: currentmessage.sender ==
+                                                    widget.firebaseuser.uid
+                                                ? Color(0xFF66BEB8)
+                                                : Color(0xFFCCD0DC)),
+                                        child: Center(
+                                          child: Wrap(
+                                            children: [
+                                              Text(
+                                                  currentmessage.text
+                                                      .toString()
+                                                      .trim(),
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
