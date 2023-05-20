@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:minor/screens/pages/home_screen.dart';
-
 import '../../const/color_const.dart';
-
 import '../../utils/app_sizes.dart';
 
 class CategoryList extends StatelessWidget {
@@ -13,7 +11,6 @@ class CategoryList extends StatelessWidget {
   void navigateto({required BuildContext context, required String cat}) {
     Navigator.pop(context);
     Navigator.pop(context);
-
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -267,7 +264,7 @@ class CategoryList extends StatelessWidget {
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
-              navigateto(context: context, cat: "Sperts");
+              navigateto(context: context, cat: "Sports");
             },
           ),
         ),
