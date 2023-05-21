@@ -25,6 +25,7 @@ class _MyAdsState extends State<MyAds> {
   String? profilePic = ' ';
   String? phoneNumber = ' ';
   String? aadhar = ' ';
+  String? uid = ' ';
 
   Future _getData() async {
     final snapshot = await FirebaseFirestore.instance
@@ -40,6 +41,7 @@ class _MyAdsState extends State<MyAds> {
         email = data['email'];
         profilePic = data['profilePic'];
         phoneNumber = data['phoneNumber'];
+        uid = data['uid'];
       });
     }
   }
@@ -78,7 +80,8 @@ class _MyAdsState extends State<MyAds> {
                 aadhar: aadhar,
                 phoneNumber: phoneNumber,
                 bio: bio,
-                name: name!);
+                name: name!,
+                uid: uid,);
           },
         ),
       );

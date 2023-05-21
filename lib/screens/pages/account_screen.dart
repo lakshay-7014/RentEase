@@ -4,26 +4,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:minor/models/user_model.dart';
+import 'package:minor/screens/My_contract.dart';
 import 'package:minor/screens/pages/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import '../../auth/auth_provider.dart';
 import '../../const/color_const.dart';
 
 class AccountScreen extends StatefulWidget {
-  String name;
-  String? email;
-  String? bio;
-  String? profilePic;
-  String? phoneNumber;
-  String? aadhar;
-  AccountScreen(
+  final String? name;
+  final String? email;
+  final String? bio;
+  final String? profilePic;
+  final String? phoneNumber;
+  final String? aadhar;
+  final String? uid;
+
+  const AccountScreen(
       {super.key,
+      required this.name,
       required this.email,
-      required this.profilePic,
-      required this.aadhar,
-      required this.phoneNumber,
       required this.bio,
-      required this.name});
+      this.profilePic,
+      this.phoneNumber,
+      this.aadhar,
+      this.uid});
 
   @override
   _AccountScreenState createState() => _AccountScreenState();
@@ -38,6 +42,46 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.uid);
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+    void showOption() {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Other"),
+              content: Column(mainAxisSize: MainAxisSize.min, children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return MyContract(uid: widget.uid,);
+                        },
+                      ),
+                    );
+                  },
+                  title: const Text("My Contracts"),
+                  leading: const Icon(Icons.photo_album_outlined),
+                ),
+                ListTile(
+                    onTap: () {
+                      Navigator.pop(context);
+                      ap.userSignOut().then((value) => Navigator.of(context)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (c) => WelcomeScreen()),
+                              (route) => false));
+                    },
+                    title: const Text("Logout"),
+                    leading: const Icon(Icons.logout))
+              ]),
+            );
+          });
+    }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -63,6 +107,15 @@ class _AccountScreenState extends State<AccountScreen> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.more_vert, size: 20),
+            color: Color.fromARGB(255, 250, 255, 254),
+            onPressed: () {
+              showOption();
+            },
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -85,7 +138,7 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
           SizedBox(height: 8),
           Text(
-            widget.name,
+            widget.name!,
             style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 22,
@@ -196,42 +249,42 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
           ),
-          SizedBox(height: 80),
-          submitField(context),
+          // SizedBox(height: 80),
+          // submitField(context),
         ],
       ),
     );
   }
 
-  Widget submitField(BuildContext context) {
-    final ap = Provider.of<AuthProvider>(context, listen: false);
-    return Center(
-      child: SizedBox(
-        height: 50,
-        width: 200,
-        child: ElevatedButton(
-          onPressed: () {
-            ap.userSignOut().then((value) => Navigator.of(context)
-                .pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (c) => WelcomeScreen()),
-                    (route) => false));
-          },
-          child: Text(
-            "Log-out",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            primary: Color(0xFF076E66),
-          ),
-        ),
-      ),
-    );
-  }
+//   Widget submitField(BuildContext context) {
+//     final ap = Provider.of<AuthProvider>(context, listen: false);
+//     return Center(
+//       child: SizedBox(
+//         height: 50,
+//         width: 200,
+//         child: ElevatedButton(
+//           onPressed: () {
+//             ap.userSignOut().then((value) => Navigator.of(context)
+//                 .pushAndRemoveUntil(
+//                     MaterialPageRoute(builder: (c) => WelcomeScreen()),
+//                     (route) => false));
+//           },
+//           child: Text(
+//             "Log-out",
+//             style: TextStyle(
+//               color: Colors.white,
+//               fontWeight: FontWeight.bold,
+//               fontSize: 20,
+//             ),
+//           ),
+//           style: ElevatedButton.styleFrom(
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(15),
+//             ),
+//             primary: Color(0xFF076E66),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
 }
