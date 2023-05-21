@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:minor/models/user_model.dart';
+import 'package:minor/screens/contract.dart';
 import 'package:minor/views/widgets/custom_appBar.dart';
 import '../../const/color_const.dart';
 import '../../main.dart';
@@ -24,6 +25,39 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  void showOption() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Upload Image"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Uploadcontract(
+                            targetuser: widget.targetuser,
+                            firebaseuser: widget.firebaseuser,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  title: const Text("Upload Contract"),
+                  leading: const Icon(Icons.photo_album_outlined),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   void sendmessage() {
     String message = messagecontroller.text;
     if (message != "") {
@@ -149,7 +183,9 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.more_vert, size: 20),
             color: Color(0xFF177767),
-            onPressed: () {},
+            onPressed: () {
+              showOption();
+            },
           ),
         ],
       ),

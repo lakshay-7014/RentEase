@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? profilePic = "assets/images/default_image1.png";
   String? phoneNumber = ' ';
   String? aadhar = ' ';
+  String? uid = ' ';
 
   Future<void> _getData() async {
     final snapshot = await FirebaseFirestore.instance
@@ -57,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         email = data['email'];
         profilePic = data['profilePic'];
         phoneNumber = data['phoneNumber'];
+        uid = data['uid'];
       });
     }
   }
@@ -110,12 +112,14 @@ class _HomeScreenState extends State<HomeScreen> {
         MaterialPageRoute(
           builder: (context) {
             return AccountScreen(
-                email: email,
-                profilePic: profilePic,
-                aadhar: aadhar,
-                phoneNumber: phoneNumber,
-                bio: bio,
-                name: name!);
+              email: email,
+              profilePic: profilePic,
+              aadhar: aadhar,
+              phoneNumber: phoneNumber,
+              bio: bio,
+              name: name!,
+              uid: uid,
+            );
           },
         ),
       );
