@@ -75,13 +75,14 @@ class _MyAdsState extends State<MyAds> {
         MaterialPageRoute(
           builder: (context) {
             return AccountScreen(
-                email: email,
-                profilePic: profilePic,
-                aadhar: aadhar,
-                phoneNumber: phoneNumber,
-                bio: bio,
-                name: name!,
-                uid: uid,);
+              email: email,
+              profilePic: profilePic,
+              aadhar: aadhar,
+              phoneNumber: phoneNumber,
+              bio: bio,
+              name: name!,
+              uid: uid,
+            );
           },
         ),
       );
@@ -156,7 +157,8 @@ class _MyAdsState extends State<MyAds> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
                                       child: Text(
                                         formmodel.productName.toString(),
                                         style: TextStyle(
@@ -166,7 +168,8 @@ class _MyAdsState extends State<MyAds> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
                                       child: Text(
                                         "₹ " +
                                             formmodel.price.toString() +
@@ -180,7 +183,8 @@ class _MyAdsState extends State<MyAds> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
                                       child: Row(
                                         children: [
                                           Icon(
