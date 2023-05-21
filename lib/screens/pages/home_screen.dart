@@ -344,7 +344,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
                                         child: Text(
                                           formmodel.productName.toString(),
                                           style: TextStyle(
@@ -354,7 +355,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
                                         child: Text(
                                           "₹ " +
                                               formmodel.price.toString() +
@@ -367,7 +369,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
                                         child: Row(
                                           children: [
                                             Icon(
@@ -377,10 +380,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(
                                               width: 2,
                                             ),
-                                            Text(
-                                              formmodel.location.toString(),
-                                              style: TextStyle(
-                                                color: Colors.black,
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                formmodel.location.toString(),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                                maxLines: 2,
                                               ),
                                             ),
                                           ],

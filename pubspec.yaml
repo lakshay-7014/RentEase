@@ -50,6 +50,7 @@ dependencies:
   image_cropper: ^4.0.1
   #flutter_launcher_icons: ^0.13.1
   uuid: ^3.0.6
+  device_preview: ^1.1.0
 
 dev_dependencies:
   flutter_test:
