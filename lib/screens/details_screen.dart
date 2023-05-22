@@ -39,6 +39,14 @@ class _DetailsState extends State<Details> {
     UiHelper.showloadingDialog(context, "Loading");
     try {
       XFile? pickedfile = await ImagePicker().pickImage(source: source);
+      if (pickedfile == null) {
+        Navigator.pop(context);
+        if (context.mounted) {
+          UiHelper.showAlertDialog(
+              context, "Upload Product Image !!", "please select the image");
+        }
+        return;
+      }
       cropimage(pickedfile);
     } catch (e) {
       Navigator.pop(context);
@@ -61,6 +69,13 @@ class _DetailsState extends State<Details> {
           //  print(imageFile);
         });
         Navigator.pop(context);
+      } else {
+        Navigator.pop(context);
+        if (context.mounted) {
+          UiHelper.showAlertDialog(
+              context, "Upload Product Image !!", "please select the image");
+        }
+        return;
       }
     } catch (e) {
       //print(e.toString());
